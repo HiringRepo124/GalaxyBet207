@@ -5,6 +5,7 @@ const configureMiddleware = require('./middleware');
 const configureRoutes = require('./routes');
 const errorHandler = require('./middleware/errorHandler');
 const util = require('@array-util/nodepull');
+const bodyParser = require("body-parser");
 
 /**
  * Initialize Express application
@@ -19,6 +20,11 @@ configureRoutes(app);
 
 // Global error handler (must be last)
 app.use(errorHandler);
+
+// BodyParser
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 /**
  * Start HTTP server
