@@ -1,0 +1,475 @@
+#slotsPage {
+  background:
+    radial-gradient(circle at 20% 12%, rgba(124, 58, 237, 0.18), transparent 35%),
+    radial-gradient(circle at 85% 16%, rgba(244, 196, 48, 0.08), transparent 34%),
+    var(--sg-bg);
+  border-radius: var(--_20px);
+  padding: 0.75rem;
+}
+
+#slotsPage .slotsShell {
+  max-width: 1580px;
+  margin: 0 auto;
+}
+
+#slotsPage .cardShell {
+  background: linear-gradient(160deg, var(--sg-surface) 0%, var(--sg-surface-2) 100%);
+  border: 1px solid var(--sg-border);
+  border-radius: var(--_15px);
+  padding: 1rem;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.32);
+}
+
+#slotsPage .slotsTopBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+#slotsPage .topLinks {
+  display: flex;
+  gap: 0.4rem;
+}
+
+#slotsPage .topLinks button,
+#slotsPage .showSelect {
+  border: none;
+  border-radius: 999px;
+  padding: 0.4rem 0.75rem;
+  font-family: WorkSans-S;
+  font-size: 0.75rem;
+  color: var(--dark-white);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+#slotsPage .topLinks button:first-child {
+  color: var(--sg-gold);
+}
+
+#slotsPage .topWallet {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+#slotsPage .topWallet span {
+  border: 1px solid rgba(244, 196, 48, 0.45);
+  background: rgba(244, 196, 48, 0.08);
+  color: var(--sg-gold);
+  border-radius: 999px;
+  padding: 0.35rem 0.62rem;
+  font-family: SpaceMono-R;
+  font-size: 0.72rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+#slotsPage .jackpotsRow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+#slotsPage .jackpotCard {
+  border-radius: var(--_15px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.02);
+  padding: 0.72rem;
+  text-align: center;
+  display: grid;
+  gap: 0.2rem;
+}
+
+#slotsPage .jackpotCard .stars {
+  color: var(--sg-gold);
+  letter-spacing: 0.2rem;
+  font-size: 1rem;
+}
+
+#slotsPage .jackpotCard strong {
+  color: var(--white);
+  font-family: Rubik-B;
+  font-size: 1.45rem;
+  line-height: 1;
+}
+
+#slotsPage .jackpotCard small {
+  color: var(--sg-text-muted);
+  font-family: WorkSans-M;
+  text-transform: uppercase;
+}
+
+#slotsPage .jackpotCard span {
+  color: var(--sg-gold);
+  font-family: SpaceMono-B;
+  font-size: 0.84rem;
+}
+
+#slotsPage .jackpotCard.gold {
+  border-color: rgba(244, 196, 48, 0.7);
+  box-shadow: 0 0 18px rgba(244, 196, 48, 0.25);
+}
+
+#slotsPage .jackpotCard.silver {
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+#slotsPage .jackpotCard.bronze {
+  border-color: rgba(236, 139, 66, 0.6);
+}
+
+#slotsPage .machineWrap {
+  padding: 1rem;
+}
+
+#slotsPage .slotsMachine {
+  border: 1px solid rgba(244, 196, 48, 0.25);
+  border-radius: var(--_15px);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent),
+    radial-gradient(circle at 50% 0%, rgba(124, 58, 237, 0.2), transparent 55%),
+    rgba(0, 0, 0, 0.22);
+  overflow: hidden;
+}
+
+#slotsPage .machineRow {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  text-align: center;
+  padding: 0.9rem 0.4rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+#slotsPage .machineRow:first-child {
+  border-top: none;
+}
+
+#slotsPage .machineRow span {
+  color: var(--white);
+  font-size: 1.65rem;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.18);
+}
+
+#slotsPage .machineRow.hit {
+  background: linear-gradient(90deg, rgba(244, 196, 48, 0.24), rgba(244, 196, 48, 0.08));
+  box-shadow: inset 0 0 16px rgba(244, 196, 48, 0.25);
+}
+
+#slotsPage .machineRow.hit span {
+  font-size: 0.9rem;
+  font-family: SpaceMono-B;
+  letter-spacing: 0.03em;
+}
+
+#slotsPage .totalPayout {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--dark-white);
+  font-family: WorkSans-M;
+}
+
+#slotsPage .totalPayout strong {
+  color: var(--sg-gold);
+  font-family: SpaceMono-B;
+  font-size: 0.95rem;
+}
+
+#slotsPage .betPanel {
+  border: 1px solid var(--sg-border);
+  border-radius: var(--_10px);
+  background: rgba(255, 255, 255, 0.02);
+  padding: 0.75rem;
+}
+
+#slotsPage .modeSwitch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.45rem;
+}
+
+#slotsPage .modeSwitch button {
+  border: 1px solid var(--sg-border);
+  border-radius: var(--_8px);
+  padding: 0.45rem;
+  background: transparent;
+  color: var(--dark-white);
+  font-family: WorkSans-S;
+  font-size: 0.75rem;
+}
+
+#slotsPage .modeSwitch button.active {
+  border-color: rgba(244, 196, 48, 0.55);
+  background: rgba(244, 196, 48, 0.12);
+  color: var(--sg-gold);
+}
+
+#slotsPage .betLabel {
+  display: block;
+  margin-top: 0.85rem;
+  margin-bottom: 0.4rem;
+  color: var(--sg-text-muted);
+  font-family: WorkSans-M;
+  font-size: 0.75rem;
+}
+
+#slotsPage .betInputWrap,
+#slotsPage .linesSelect {
+  border: 1px solid var(--sg-border);
+  border-radius: var(--_8px);
+  padding: 0.45rem 0.55rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--sg-gold);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+#slotsPage .betInputWrap input {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--white);
+  width: 100%;
+  font-family: SpaceMono-R;
+  font-size: 0.82rem;
+}
+
+#slotsPage .quickBets,
+#slotsPage .linesGrid {
+  margin-top: 0.45rem;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.35rem;
+}
+
+#slotsPage .quickBets button,
+#slotsPage .linesGrid button {
+  border: 1px solid var(--sg-border);
+  border-radius: var(--_8px);
+  padding: 0.3rem;
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--sg-text-muted);
+  font-family: SpaceMono-R;
+  font-size: 0.68rem;
+}
+
+#slotsPage .linesGrid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+#slotsPage .linesGrid button.active {
+  border-color: rgba(244, 196, 48, 0.55);
+  color: var(--sg-gold);
+}
+
+#slotsPage .placeBetBtn {
+  width: 100%;
+  border: none;
+  border-radius: var(--_10px);
+  padding: 0.65rem;
+  background: linear-gradient(135deg, var(--sg-gold), var(--sg-gold-hover));
+  color: var(--sg-bg);
+  font-family: WorkSans-S;
+}
+
+#slotsPage .betsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+#slotsPage .betsTabs {
+  display: flex;
+  gap: 0.42rem;
+}
+
+#slotsPage .betsTabs button {
+  border: 1px solid var(--sg-border);
+  border-radius: var(--_8px);
+  padding: 0.35rem 0.7rem;
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--dark-white);
+  font-family: WorkSans-S;
+  font-size: 0.75rem;
+}
+
+#slotsPage .betsTabs button.active {
+  border-color: rgba(244, 196, 48, 0.55);
+  color: var(--sg-gold);
+  background: rgba(244, 196, 48, 0.12);
+}
+
+#slotsPage .showSelect {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+}
+
+#slotsPage .betsTable {
+  margin-top: 0.75rem;
+  overflow-x: auto;
+}
+
+#slotsPage .betsHeadRow,
+#slotsPage .betsRow {
+  min-width: 660px;
+  display: grid;
+  grid-template-columns: 110px 150px 130px 130px 120px;
+  gap: 0.4rem;
+  align-items: center;
+  padding: 0.5rem 0.25rem;
+}
+
+#slotsPage .betsHeadRow {
+  color: var(--sg-text-muted);
+  font-family: WorkSans-M;
+  font-size: 0.72rem;
+}
+
+#slotsPage .betsRow {
+  border-top: 1px solid var(--sg-border);
+  color: var(--dark-white);
+  font-family: SpaceMono-R;
+  font-size: 0.72rem;
+}
+
+#slotsPage .betsRow .highlight {
+  color: var(--sg-gold);
+  font-family: SpaceMono-B;
+}
+
+#slotsPage .slotsRight {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#slotsPage .chatTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#slotsPage .chatTitle span {
+  color: var(--white);
+  font-family: Rubik-B;
+}
+
+#slotsPage .chatTitle strong {
+  color: var(--sg-gold);
+  font-family: SpaceMono-R;
+  font-size: 0.82rem;
+}
+
+#slotsPage .chatStack {
+  margin-top: 0.8rem;
+  display: grid;
+  gap: 0.55rem;
+  max-height: 660px;
+  overflow-y: auto;
+}
+
+#slotsPage .chatBubble {
+  border: 1px solid var(--sg-border);
+  border-radius: var(--_10px);
+  background: rgba(255, 255, 255, 0.02);
+  padding: 0.55rem;
+}
+
+#slotsPage .chatBubble header {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.4rem;
+  margin-bottom: 0.25rem;
+}
+
+#slotsPage .chatBubble header span {
+  color: var(--white);
+  font-family: WorkSans-S;
+  font-size: 0.74rem;
+}
+
+#slotsPage .chatBubble header small {
+  color: var(--sg-text-muted);
+  font-family: SpaceMono-R;
+  font-size: 0.66rem;
+}
+
+#slotsPage .chatBubble p {
+  margin: 0;
+  color: var(--dark-white);
+  opacity: 0.85;
+  font-family: WorkSans-R;
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
+#slotsPage .chatInput {
+  margin-top: auto;
+  border: 1px solid var(--sg-border);
+  border-radius: var(--_10px);
+  padding: 0.3rem;
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+}
+
+#slotsPage .chatInput input {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--white);
+  width: 100%;
+  font-family: SpaceMono-R;
+  font-size: 0.75rem;
+}
+
+#slotsPage .chatInput button {
+  border: none;
+  border-radius: var(--_8px);
+  padding: 0.34rem 0.56rem;
+  background: linear-gradient(135deg, var(--sg-gold), var(--sg-gold-hover));
+  color: var(--sg-bg);
+}
+
+@media (max-width: 1399px) {
+  #slotsPage .topWallet {
+    justify-content: flex-start;
+  }
+
+  #slotsPage .jackpotsRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 991px) {
+  #slotsPage .machineRow span {
+    font-size: 1.25rem;
+  }
+
+  #slotsPage .machineRow.hit span {
+    font-size: 0.72rem;
+  }
+}
+
+@media (max-width: 575px) {
+  #slotsPage .cardShell {
+    padding: 0.75rem;
+  }
+
+  #slotsPage .betsTabs {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  #slotsPage .quickBets {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

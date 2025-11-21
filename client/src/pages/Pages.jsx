@@ -4,6 +4,7 @@ export { default as Rankings } from "./rankings/Rankings";
 export { default as Trading } from "./trading/Trading";
 export { default as SportsBetting } from "./sportsBetting/SportsBetting";
 export { default as Roulette } from "./roulette/Roulette";
+export { default as Slots } from "./slots/Slots";
 export { default as Staking } from "./staking/Staking";
 export { default as Transactions } from "./transactions/Transactions";
 export { default as Support } from "./support/Support";
