@@ -8,28 +8,28 @@ const defaultGames = [
     desc: "Earn passive rewards on your BET tokens",
     icon: TbCoins,
     color: "rgba(124, 58, 237, 0.2)",
-    link: "/trading",
+    link: "/staking",
   },
   {
     name: "Roulette",
     desc: "Classic wheel action with live odds",
     icon: GiPokerHand,
     color: "rgba(244, 196, 48, 0.15)",
-    link: "/nfts",
+    link: "/roulette",
   },
   {
     name: "Sport",
     desc: "Bet on matches across major leagues",
     icon: GiSoccerBall,
     color: "rgba(34, 197, 94, 0.15)",
-    link: "/rankings",
+    link: "/sports-betting",
   },
   {
     name: "Slots",
     desc: "Spin the reels for instant wins",
     icon: GiCherry,
     color: "rgba(236, 72, 153, 0.15)",
-    link: "/nfts",
+    link: "/slots",
   },
 ];
 
