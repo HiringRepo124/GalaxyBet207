@@ -128,15 +128,39 @@ const transactions = [
 
 const Transactions = () => {
   const [query, setQuery] = useState("");
+  const [typeFilter, setTypeFilter] = useState(null);
+  const [statusFilter, setStatusFilter] = useState(null);
+  const [marketplaceFilter, setMarketplaceFilter] = useState(null);
 
-  const filtered = query.trim()
-    ? transactions.filter((t) =>
-        [t.id, t.item, t.marketplace, t.type, t.status]
+  const marketplaces = [...new Set(transactions.map((t) => t.marketplace))];
+
+  const filtered = transactions.filter((t) => {
+    if (query.trim()) {
+      const searchLower = query.trim().toLowerCase();
+      if (
+        ![t.id, t.item, t.marketplace, t.type, t.status, t.date, t.amount]
           .join(" ")
           .toLowerCase()
-          .includes(query.trim().toLowerCase())
-      )
-    : transactions;
+          .includes(searchLower)
+      ) {
+        return false;
+      }
+    }
+    if (typeFilter && t.type !== typeFilter) return false;
+    if (statusFilter && t.status !== statusFilter) return false;
+    if (marketplaceFilter && t.marketplace !== marketplaceFilter) return false;
+    return true;
+  });
+
+  const activeFilterCount = [typeFilter, statusFilter, marketplaceFilter].filter(
+    (f) => f !== null
+  ).length;
+
+  const clearFilters = () => {
+    setTypeFilter(null);
+    setStatusFilter(null);
+    setMarketplaceFilter(null);
+  };
 
   return (
     <>
@@ -194,6 +218,62 @@ const Transactions = () => {
                 )}
               </div>
 
+              <div className="txnFiltersWrapper mb-4">
+                <div className="txnFiltersGroup">
+                  <div className="txnFilterItem">
+                    <label className="F6 txnFilterLabel">Type</label>
+                    <div className="txnFilterButtons">
+                      {["Buy", "Sell"].map((type) => (
+                        <button
+                          key={type}
+                          className={`txnFilterBtn ${typeFilter === type ? "active" : ""}`}
+                          onClick={() => setTypeFilter(typeFilter === type ? null : type)}
+                        >
+                          {type}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="txnFilterItem">
+                    <label className="F6 txnFilterLabel">Status</label>
+                    <div className="txnFilterButtons">
+                      {["Completed", "Pending"].map((status) => (
+                        <button
+                          key={status}
+                          className={`txnFilterBtn ${statusFilter === status ? "active" : ""}`}
+                          onClick={() => setStatusFilter(statusFilter === status ? null : status)}
+                        >
+                          {status}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="txnFilterItem">
+                    <label className="F6 txnFilterLabel">Marketplace</label>
+                    <select
+                      className="txnFilterSelect"
+                      value={marketplaceFilter || ""}
+                      onChange={(e) => setMarketplaceFilter(e.target.value || null)}
+                    >
+                      <option value="">All</option>
+                      {marketplaces.map((mp) => (
+                        <option key={mp} value={mp}>
+                          {mp}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                {activeFilterCount > 0 && (
+                  <button className="txnClearFiltersBtn" onClick={clearFilters}>
+                    Clear ({activeFilterCount})
+                  </button>
+                )}
+              </div>
+
               <div className="tableWrapper">
                 <div className="historyRow headerRow">
                   <span>ID</span>
@@ -208,7 +288,11 @@ const Transactions = () => {
                 {filtered.length === 0 && (
                   <div className="txnNoResults">
                     <FiSearch size={28} />
-                    <span>No transactions match &ldquo;{query}&rdquo;</span>
+                    <span>
+                      {query
+                        ? `No transactions match "${query}"`
+                        : "No transactions match the selected filters"}
+                    </span>
                   </div>
                 )}
                 {filtered.map((item) => (
