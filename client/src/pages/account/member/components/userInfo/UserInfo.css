@@ -186,3 +186,35 @@
 #memberAcount .userLinks .Contant .linkIcon:hover {
     color: var(--lemon);
 }
+
+/* ------------------
+# Follow Button State
+--------------------- */
+#memberAcount .buttonSection .btnSectionoutLone.followed {
+    background-color: rgba(163, 255, 145, 0.1);
+    border-color: #a3ff91;
+}
+
+#memberAcount .buttonSection .btnSectionoutLone.followed span,
+#memberAcount .buttonSection .btnSectionoutLone.followed .reactIcons {
+    color: #a3ff91;
+}
+
+#memberAcount .smbuttonSection .btnSectionoutLone.followed {
+    background-color: rgba(163, 255, 145, 0.1);
+    border-color: #a3ff91;
+}
+
+#memberAcount .smbuttonSection .btnSectionoutLone.followed span,
+#memberAcount .smbuttonSection .btnSectionoutLone.followed .reactIcons {
+    color: #a3ff91;
+}
+
+/* Hover effect for buttons */
+#memberAcount .buttonSection .btnSection:hover,
+#memberAcount .buttonSection .btnSectionoutLone:hover,
+#memberAcount .smbuttonSection .btnSection:hover,
+#memberAcount .smbuttonSection .btnSectionoutLone:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(163, 255, 145, 0.2);
+}

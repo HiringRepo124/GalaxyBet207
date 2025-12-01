@@ -1,4 +1,5 @@
 import "./UserInfo.css";
+import { useState } from "react";
 import { IoSettingsOutline } from "react-icons/io5";
 import { FaRegCopy } from "react-icons/fa6";
 import { PiFacebookLogoLight } from "react-icons/pi";
@@ -7,10 +8,21 @@ import { PiYoutubeLogoLight } from "react-icons/pi";
 import { IoLogoInstagram } from "react-icons/io";
 import { FaXTwitter } from "react-icons/fa6";
 import { MdVerified } from "react-icons/md";
+import Toast, { useToast } from "../../../../../../components/Toast/Toast";
 
 const UserInfo = ({ rowData, serBodyComponant }) => {
+  const { toast, showToast } = useToast();
+
+  const handleCopyUserId = () => {
+    const userId = rowData.Access.systemRequerd.userID;
+    navigator.clipboard.writeText(userId).then(() => {
+      showToast(`Copied: ${userId}`, "success", 2000);
+    });
+  };
   return (
-    <section id="userAcount">
+    <>
+      <Toast message={toast?.message} type={toast?.type} />
+      <section id="userAcount">
       <div
         className="profilePanner mb-5"
         style={{
@@ -43,7 +55,7 @@ const UserInfo = ({ rowData, serBodyComponant }) => {
               )}
             </div>
             <div className="d-block d-md-none smbuttonSection mt-3 pb-1">
-              <div className="btnSection d-flex justify-content-center align-items-center gap-2 py-3">
+              <div className="btnSection d-flex justify-content-center align-items-center gap-2 py-3" onClick={handleCopyUserId} style={{ cursor: "pointer" }}>
                 <FaRegCopy className="reactIcons" />
                 <span>{rowData.Access.systemRequerd.userID}</span>
               </div>
@@ -144,7 +156,7 @@ const UserInfo = ({ rowData, serBodyComponant }) => {
           </div>
           <div className="col-md-6 d-none d-md-block buttonSection ">
             <div className="d-flex justify-content-end gap-3">
-              <div className="btnSection d-flex justify-content-center align-items-center gap-2 py-3 px-3">
+              <div className="btnSection d-flex justify-content-center align-items-center gap-2 py-3 px-3" onClick={handleCopyUserId} style={{ cursor: "pointer" }}>
                 <FaRegCopy className="reactIcons" />
                 <span>{rowData.Access.systemRequerd.userID}</span>
               </div>
@@ -161,6 +173,7 @@ const UserInfo = ({ rowData, serBodyComponant }) => {
       </div>
       <hr className="mb-3 mt-4" />
     </section>
+    </>
   );
 };
 

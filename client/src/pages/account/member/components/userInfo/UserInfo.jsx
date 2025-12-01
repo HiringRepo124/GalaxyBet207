@@ -1,5 +1,7 @@
 import "./UserInfo.css";
+import { useState } from "react";
 import { MdAdd } from "react-icons/md";
+import { MdCheck } from "react-icons/md";
 import { FaRegCopy } from "react-icons/fa6";
 import { PiFacebookLogoLight } from "react-icons/pi";
 import { PiDiscordLogoLight } from "react-icons/pi";
@@ -7,8 +9,12 @@ import { PiYoutubeLogoLight } from "react-icons/pi";
 import { IoLogoInstagram } from "react-icons/io";
 import { FaXTwitter } from "react-icons/fa6";
 import { MdVerified } from "react-icons/md";
+import Toast, { useToast } from "../../../../../../components/Toast/Toast";
 
 const UserInfo = ({ userInfromation }) => {
+  const [isFollowed, setIsFollowed] = useState(false);
+  const { toast, showToast } = useToast();
+
   const userLinksIcon = {
     faceBook: PiFacebookLogoLight,
     YouTube: PiYoutubeLogoLight,
@@ -17,8 +23,26 @@ const UserInfo = ({ userInfromation }) => {
     Twitter: FaXTwitter,
   };
 
+  const handleCopyUserId = () => {
+    const userId = userInfromation.userID;
+    navigator.clipboard.writeText(userId).then(() => {
+      showToast(`Copied: ${userId}`, "success", 2000);
+    });
+  };
+
+  const handleFollowUser = () => {
+    setIsFollowed(!isFollowed);
+    showToast(
+      isFollowed ? "Unfollowed" : "Followed",
+      "success",
+      2000
+    );
+  };
+
   return (
-    <section id="memberAcount">
+    <>
+      <Toast message={toast?.message} type={toast?.type} />
+      <section id="memberAcount">
       <div
         className="profilePanner mb-5"
         style={{ backgroundImage: `url('${userInfromation.userPanar}')` }}
@@ -49,13 +73,13 @@ const UserInfo = ({ userInfromation }) => {
               )}
             </div>
             <div className="d-block d-md-none smbuttonSection mt-3 pb-1">
-              <div className="btnSection d-flex justify-content-center align-items-center gap-2 py-3">
+              <div className="btnSection d-flex justify-content-center align-items-center gap-2 py-3" onClick={handleCopyUserId} style={{ cursor: "pointer" }}>
                 <FaRegCopy className="reactIcons" />
                 <span>{userInfromation.userID}</span>
               </div>
-              <div className="btnSectionoutLone d-flex justify-content-center align-items-center gap-2 py-3 mt-3">
-                <MdAdd className="reactIcons lemon" />
-                <span>Follow</span>
+              <div className={`btnSectionoutLone d-flex justify-content-center align-items-center gap-2 py-3 mt-3 ${isFollowed ? "followed" : ""}`} onClick={handleFollowUser} style={{ cursor: "pointer" }}>
+                {isFollowed ? <MdCheck className="reactIcons lemon" /> : <MdAdd className="reactIcons lemon" />}
+                <span>{isFollowed ? "Following" : "Follow"}</span>
               </div>
             </div>
             <div className="d-flex justify-content-center justify-content-md-start text-center text-md-start gap-5 userState mt-4">
@@ -102,19 +126,20 @@ const UserInfo = ({ userInfromation }) => {
           </div>
           <div className="col-md-6 d-none d-md-block buttonSection ">
             <div className="d-flex justify-content-end gap-3">
-              <div className="btnSection d-flex justify-content-center align-items-center gap-2 py-3 px-3">
+              <div className="btnSection d-flex justify-content-center align-items-center gap-2 py-3 px-3" onClick={handleCopyUserId} style={{ cursor: "pointer" }}>
                 <FaRegCopy className="reactIcons" />
                 <span>{userInfromation.userID}</span>
               </div>
-              <div className="btnSectionoutLone d-flex justify-content-center align-items-center gap-2 py-3 px-3">
-                <MdAdd className="reactIcons lemon" />
-                <span>Follow</span>
+              <div className={`btnSectionoutLone d-flex justify-content-center align-items-center gap-2 py-3 px-3 ${isFollowed ? "followed" : ""}`} onClick={handleFollowUser} style={{ cursor: "pointer" }}>
+                {isFollowed ? <MdCheck className="reactIcons lemon" /> : <MdAdd className="reactIcons lemon" />}
+                <span>{isFollowed ? "Following" : "Follow"}</span>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
+    </>
   );
 };
 

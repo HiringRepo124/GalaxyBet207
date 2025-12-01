@@ -202,3 +202,18 @@
 #userAcount .userLinks .Contant .linkIcon:hover {
     color: var(--lemon);
 }
+
+/* ------------------
+# Button Hover Effects
+--------------------- */
+#userAcount .buttonSection .btnSection:hover,
+#userAcount .buttonSection .btnSectionoutLone:hover,
+#userAcount .smbuttonSection .btnSection:hover,
+#userAcount .smbuttonSection .btnSectionoutLone:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(163, 255, 145, 0.2);
+}
+
+#userAcount .userLinks .Contant .linkIcon:hover {
+    color: var(--lemon);
+}
