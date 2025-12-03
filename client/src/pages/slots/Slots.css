@@ -136,23 +136,23 @@
 }
 
 #slotsPage .slotsMachine.spinning {
-  animation: slotsPulse 0.5s ease-in-out infinite, slotsShake 0.18s linear infinite;
+  animation: slotsPulse 0.9s ease-in-out infinite;
 }
 
 #slotsPage .slotsMachine.spinning .machineRow {
-  animation: reelRowSpin 0.38s linear infinite;
+  animation: reelVerticalBounce 0.28s ease-in-out infinite;
 }
 
 #slotsPage .slotsMachine.spinning .machineRow:nth-child(2) {
-  animation-duration: 0.34s;
+  animation-duration: 0.24s;
 }
 
 #slotsPage .slotsMachine.spinning .machineRow:nth-child(3) {
-  animation-duration: 0.42s;
+  animation-duration: 0.32s;
 }
 
 #slotsPage .slotsMachine.spinning .machineRow span {
-  animation: reelSymbolSpin 0.26s linear infinite;
+  animation: reelSymbolVertical 0.22s ease-in-out infinite;
 }
 
 #slotsPage .slotsMachine.spinning .machineRow span:nth-child(2) {
@@ -502,45 +502,33 @@
   }
 }
 
-@keyframes slotsShake {
+@keyframes reelVerticalBounce {
   0% {
-    transform: translateX(-1px);
+    transform: translateY(-9px);
+    filter: blur(0.8px);
   }
   50% {
-    transform: translateX(1px);
+    transform: translateY(9px);
+    filter: blur(1.1px);
   }
   100% {
-    transform: translateX(-1px);
+    transform: translateY(-9px);
+    filter: blur(0.8px);
   }
 }
 
-@keyframes reelRowSpin {
+@keyframes reelSymbolVertical {
   0% {
-    transform: translateY(0);
-    filter: blur(0px);
+    transform: translateY(-10px);
+    opacity: 0.55;
   }
   50% {
-    transform: translateY(8px);
-    filter: blur(1px);
-  }
-  100% {
-    transform: translateY(0);
-    filter: blur(0px);
-  }
-}
-
-@keyframes reelSymbolSpin {
-  0% {
-    transform: translateY(-7px) scale(0.96);
-    opacity: 0.7;
-  }
-  50% {
-    transform: translateY(7px) scale(1.04);
+    transform: translateY(10px);
     opacity: 1;
   }
   100% {
-    transform: translateY(-7px) scale(0.96);
-    opacity: 0.7;
+    transform: translateY(-10px);
+    opacity: 0.55;
   }
 }
 
