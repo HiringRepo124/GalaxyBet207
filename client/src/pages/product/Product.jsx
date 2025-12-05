@@ -3,7 +3,6 @@ import { Helmet } from "react-helmet-async";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import ForgotPasswordModal from "./ForgotPasswordModal";
 import { MdVerified } from "react-icons/md";
 
 const Product = ({ Data, productName }) => {
@@ -17,22 +16,11 @@ const Product = ({ Data, productName }) => {
   const [walletName, setWalletName] = useState("");
   const [connecting, setConnecting] = useState(false);
   const [searchWallet, setSearchWallet] = useState("");
-  const [showUnlockModal, setShowUnlockModal] = useState(false);
-  const [selectedWallet, setSelectedWallet] = useState(null);
-  const [walletPassword, setWalletPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
   const [showOfferModal, setShowOfferModal] = useState(false);
   const [pendingOfferRequest, setPendingOfferRequest] = useState(false);
   const [offerAmount, setOfferAmount] = useState("");
   const [offerMessage, setOfferMessage] = useState("");
   const [offerFeedback, setOfferFeedback] = useState("");
-  
-  const [showForgotModal, setShowForgotModal] = useState(false);
-
-  const openWalletUnlock = (wallet) => {
-    setSelectedWallet(wallet);
-    setShowUnlockModal(true);
-  };
 
   const wallets = [
     {
@@ -527,10 +515,7 @@ const Product = ({ Data, productName }) => {
               <div
                 key={index}
                 className="walletCard"
-                onClick={() => {
-                  setSelectedWallet(wallet);
-                  setShowUnlockModal(true);
-                }}
+                onClick={() => connectWallet(wallet.type)}
               >
                 <div className="walletLeft">
                   <img
@@ -557,94 +542,6 @@ const Product = ({ Data, productName }) => {
             New to wallets?
             <a href="#"> Learn more about wallets</a>
           </div>
-        </Modal.Body>
-      </Modal>
-      <Modal
-        show={showUnlockModal}
-        onHide={() => setShowUnlockModal(false)}
-        centered
-        dialogClassName="unlockWalletDialog"
-      >
-        <Modal.Body className="unlockWalletBody">
-
-          <div className="unlockTop">
-
-            <img
-              src={selectedWallet?.icon}
-              alt={selectedWallet?.name}
-            />
-
-            <h4>
-              Unlock {selectedWallet?.name}
-            </h4>
-
-            <p>
-              Enter your password to unlock your wallet
-            </p>
-
-          </div>
-
-          <div className="unlockInput">
-
-            <i className="bi bi-lock"></i>
-
-            <input
-              type={showPassword ? "text" : "password"}
-              placeholder="Password"
-              value={walletPassword}
-              onChange={(e) =>
-                setWalletPassword(e.target.value)
-              }
-            />
-
-            <span
-              className="passwordEye"
-              onClick={() =>
-                setShowPassword(!showPassword)
-              }
-            >
-              <i
-                className={
-                  showPassword
-                    ? "bi bi-eye"
-                    : "bi bi-eye-slash"
-                }
-              ></i>
-            </span>
-
-          </div>
-
-
-          <button
-            className="unlockBtn"
-            onClick={() => {
-              console.log(
-                "Unlock logic here"
-              );
-            }}
-          >
-            Unlock
-          </button>
-
-
-          {/* <div className="forgotPasswordSection">
-            <button
-              className="forgotPasswordBtn"
-            >
-              Forgot password?
-            </button>
-          </div> */}
-
-          <div className="forgotPasswordSection">
-            <button
-              className="forgotPasswordBtn"
-              onClick={() => setShowForgotModal(true)}
-            >
-              Forgot password?
-            </button>
-          </div>
-
-
         </Modal.Body>
       </Modal>
 
@@ -689,15 +586,7 @@ const Product = ({ Data, productName }) => {
           </div>
         </Modal.Body>
       </Modal>
-      
-      {/* <ForgotPasswordModal
-        show={showForgotModal}
-        onHide={() => setShowForgotModal(false)}
-        onSelect={(option) => {
-          console.log("Selected recovery method:", option);
-          // handle logic like redirecting to recovery flow
-        }}
-      /> */}
+
     </>
   );
 };
