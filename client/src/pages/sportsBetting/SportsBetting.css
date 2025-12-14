@@ -352,8 +352,14 @@
 
 #sportsBetting .pickButtons button.active {
   border-color: var(--lemon);
-  color: var(--black);
+  color: #111111;
   background: var(--lemon);
+  font-family: WorkSans-B;
+  text-shadow: none;
+}
+
+#sportsBetting .pickButtons button.active .oddValue {
+  color: #111111;
 }
 
 #sportsBetting .pickButtons button .oddValue {
