@@ -126,6 +126,20 @@
 /* ########################
 -> question Section
 ########################### */
+#Support .faqSectionLabel {
+    color: var(--lemon);
+    font-family: Rubik-B;
+    font-size: 0.82rem;
+    opacity: .85;
+    margin-bottom: 0.4rem;
+    border-left: 3px solid var(--lemon);
+    padding-left: 0.6rem;
+}
+
+#Support .faq-container {
+    margin-top: 0.35rem !important;
+}
+
 #Support .questionSection .faq-item {
     border-radius: var(--_5px);
     opacity: .9;
@@ -133,27 +147,29 @@
 }
 
 #Support .questionSection .faq-item summary {
-    padding: 15px;
+    padding: 9px 12px;
     background-color: var(--gray);
     border-radius: var(--_5px);
     cursor: pointer;
     color: var(--white);
-    font-size: calc(100% + .1vw - .1vh);
+    font-size: 0.82rem;
     font-family: WorkSans-S;
 }
 
 #Support .questionSection .icon {
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: var(--lemon);
+    flex-shrink: 0;
 }
 
 #Support .questionSection .faq-item p {
-    padding: 0px 10px 10px 10px;
+    padding: 4px 10px 10px 10px;
     margin: 0;
     color: var(--white);
     opacity: .7;
-    font-size: calc(100% + .001vw - .2vh);
+    font-size: 0.78rem;
     font-family: WorkSans-M;
+    line-height: 1.55;
 }
 
 /* ########################
