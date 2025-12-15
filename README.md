@@ -1,5 +1,5 @@
 <div align="center">
-<h1 align="center">🌌 Galaxy – Web3 Decentralized Gaming & Betting Ecosytem</h1>
+<h1 align="center">Galaxy – Web3 Decentralized Gaming & Betting Ecosytem</h1>
 Galaxy is a  Web3 Decentralized Gaming & Betting Platform, designed to work seamlessly on all devices. Built with HTML, CSS, JavaScript, Bootstrap 5, and React + Vite, this template is optimized for performance, scalability, and a modern UI/UX.
 <br />
 </div>
@@ -7,7 +7,7 @@ Galaxy is a  Web3 Decentralized Gaming & Betting Platform, designed to work seam
 
 ## Demo
 
-![Galaxy Desktop Demo](./website-demo-image/GalaxyNFTPanen.jpg "Desktop Demo")
+![Galaxy Desktop Demo](./backend/website-demo-image/GalaxyNFTPanen.jpg "Desktop Demo")
 
 
 ## programming language and tools
