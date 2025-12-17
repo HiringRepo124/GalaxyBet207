@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 
 const Trending = ({ Data }) => {
   const [randomNumper, setRandomNumper] = useState(0);
+  const [rankedCreators, setRankedCreators] = useState([]);
+  const [movementMap, setMovementMap] = useState({});
   const [buttonState, setButtonState] = useState({
     Today: "",
     "This Week": "",
@@ -25,6 +27,45 @@ const Trending = ({ Data }) => {
       ? setRandomNumper(0)
       : setRandomNumper(0.5);
   }, [buttonState]);
+
+  useEffect(() => {
+    const initialList = [...Data.creators]
+      .sort((a, b) => b.NFTsSold - a.NFTsSold)
+      .sort(() => Math.random() - randomNumper);
+    setRankedCreators(initialList);
+  }, [Data.creators, randomNumper]);
+
+  useEffect(() => {
+    if (!rankedCreators.length) return;
+
+    const interval = setInterval(() => {
+      setRankedCreators((prev) => {
+        if (prev.length < 2) return prev;
+
+        const next = [...prev];
+        const i = Math.floor(Math.random() * (next.length - 1));
+        const j = i + 1;
+
+        // Swap nearby rows to fake rank movement in a natural way.
+        [next[i], next[j]] = [next[j], next[i]];
+
+        setMovementMap({
+          [next[i].userName]: "up",
+          [next[j].userName]: "down",
+        });
+
+        return next;
+      });
+    }, 2400);
+
+    return () => clearInterval(interval);
+  }, [rankedCreators.length]);
+
+  useEffect(() => {
+    if (!Object.keys(movementMap).length) return;
+    const timeout = setTimeout(() => setMovementMap({}), 650);
+    return () => clearTimeout(timeout);
+  }, [movementMap]);
 
   return (
     <>
@@ -102,13 +143,16 @@ const Trending = ({ Data }) => {
               </div>
             </div>
           </div>
-          {Data.creators
-            .sort((a, b) => b.NFTsSold - a.NFTsSold)
-            .sort(() => Math.random() - randomNumper)
-            .map((item, index) => (
+          {rankedCreators.map((item, index) => (
               <div
                 key={index}
-                className="row align-items-center p-2 mx-2 my-3 cheldRow"
+                className={`row align-items-center p-2 mx-2 my-3 cheldRow ${
+                  movementMap[item.userName] === "up"
+                    ? "rankMoveUp"
+                    : movementMap[item.userName] === "down"
+                    ? "rankMoveDown"
+                    : ""
+                }`}
               >
                 <div className="col-8 col-md-7 col-lg-6">
                   <div className="d-flex align-items-center gap-3">

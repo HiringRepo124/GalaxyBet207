@@ -1,19 +1,17 @@
 import "./NFTsProduct.css";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import {
   HandleStatusOfFilterButton,
-  Next,
-  Previse,
 } from "./nftProductManiger/maniger";
-import { LuMoveRight } from "react-icons/lu";
-import { LuMoveLeft } from "react-icons/lu";
 import { VscSettings } from "react-icons/vsc";
 import { CiLogout } from "react-icons/ci";
 import { TbSortAscending2 } from "react-icons/tb";
 import { PiCrownSimple } from "react-icons/pi";
 import { LuShapes } from "react-icons/lu";
 import { MdVerified } from "react-icons/md";
+
+const PAGE_SIZE = 12;
 
 const NFTs = ({
   NfsData,
@@ -25,21 +23,19 @@ const NFTs = ({
   const [Data, setData] = useState(NfsData);
   const containerRef = useRef(null);
   const boxRef = useRef(null);
-  const [handelNumpercomponant, setHandelNumpercomponant] = useState(12);
+  const sentinelRef = useRef(null);
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const [loading, setLoading] = useState(false);
+  const [newCardIds, setNewCardIds] = useState(new Set());
+
   const iconnButtonFilter = {
     "Sort by:": TbSortAscending2,
     "License:": PiCrownSimple,
     "NFTs type:": LuShapes,
   };
-  const lengthData = {
-    NFTs: Data.NFTs.length,
-    Collections: Data.Collections.length,
-  };
-  const [productSlider, setProductSlider] = useState({
-    maxLimit: 0,
-    minLimit: 0,
-    numItems: 0,
-  });
+
+  const activeList =
+    vuierState === "NFTs" ? Data.NFTs : Data.Collections;
 
   useEffect(() => {
     if (NfsData.FilterItems.length === 0) {
@@ -55,33 +51,44 @@ const NFTs = ({
         NFTs: handleFilterContent(),
       }));
     }
+    // Reset scroll when filter changes
+    setVisibleCount(PAGE_SIZE);
   }, [NfsData.FilterItems]);
 
+  // Reset visible count when tab switches
   useEffect(() => {
-    const updateComponent = () => {
-      if (window.innerWidth <= 576) {
-        setHandelNumpercomponant(5);
-      } else if (window.innerWidth <= 850) {
-        setHandelNumpercomponant(8);
-      } else {
-        setHandelNumpercomponant(12);
+    setVisibleCount(PAGE_SIZE);
+  }, [vuierState]);
+
+  // Infinite scroll via IntersectionObserver
+  const loadMore = useCallback(() => {
+    if (loading) return;
+    if (visibleCount >= activeList.length) return;
+
+    setLoading(true);
+    setTimeout(() => {
+      const nextCount = Math.min(visibleCount + PAGE_SIZE, activeList.length);
+      const ids = new Set();
+      for (let i = visibleCount; i < nextCount; i++) {
+        ids.add(activeList[i]?.id ?? i);
       }
-    };
-    updateComponent();
-    window.addEventListener("resize", updateComponent);
-    return () => window.removeEventListener("resize", updateComponent);
-  }, []);
+      setNewCardIds(ids);
+      setVisibleCount(nextCount);
+      setLoading(false);
+      setTimeout(() => setNewCardIds(new Set()), 700);
+    }, 500);
+  }, [loading, visibleCount, activeList]);
 
   useEffect(() => {
-    setProductSlider({
-      maxLimit: handelNumpercomponant,
-      minLimit: 0,
-      numItems:
-        lengthData[vuierState] > handelNumpercomponant
-          ? lengthData[vuierState]
-          : 0,
-    });
-  }, [handelNumpercomponant, vuierState, Data]);
+    const sentinel = sentinelRef.current;
+    if (!sentinel) return;
+    const obs = new IntersectionObserver(
+      (entries) => { if (entries[0].isIntersecting) loadMore(); },
+      { threshold: 0.1 }
+    );
+    obs.observe(sentinel);
+    return () => obs.disconnect();
+  }, [loadMore]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -185,15 +192,11 @@ const NFTs = ({
             <div className="row mx-3 mx-md-4 pb-2">
               {vuierState === "NFTs" ? (
                 <>
-                  {Data.NFTs.slice(
-                    productSlider.minLimit,
-                    productSlider.maxLimit
-                  )
-                    // .sort(() => Math.random() - 0.5)
+                  {Data.NFTs.slice(0, visibleCount)
                     .map((item, index) => (
                       <div
-                        key={index}
-                        className="col-12 col-md-6 col-lg-4 pt-4"
+                        key={item.id ?? index}
+                        className={`col-12 col-md-6 col-lg-4 pt-4 nftCardWrapper ${newCardIds.has(item.id) ? "nftFadeIn" : ""}`}
                       >
                         <div className="card nft-card">
                           <Link
@@ -270,15 +273,12 @@ const NFTs = ({
                 </>
               ) : (
                 <>
-                  {Data.Collections.slice(
-                    productSlider.minLimit,
-                    productSlider.maxLimit
-                  )
+                  {Data.Collections.slice(0, visibleCount)
                     .sort(() => Math.random() - 0.5)
                     .map((item, index) => (
                       <div
-                        key={index}
-                        className="col-12 col-md-6 col-lg-4 pt-4"
+                        key={item.id ?? index}
+                        className={`col-12 col-md-6 col-lg-4 pt-4 nftCardWrapper ${newCardIds.has(item.id) ? "nftFadeIn" : ""}`}
                       >
                         <div className="item p-1">
                           <div>
@@ -336,61 +336,24 @@ const NFTs = ({
             </div>
           </div>
         </div>
-        <div className="row mt-4 mb-2">
-          <div className="col-12 d-flex justify-content-center align-items-center gap-2">
-            {productSlider.numItems ? (
-              <>
-                {lengthData[vuierState] === productSlider.numItems ? (
-                  <div
-                    onClick={() =>
-                      Next(setProductSlider, handelNumpercomponant)
-                    }
-                    className="btnTemp d-flex align-items-center gap-2 py-2 px-3"
-                  >
-                    <span className="d-none d-md-block">Next Page</span>
-                    <LuMoveRight className="LuMoveRight" />
-                  </div>
-                ) : (
-                  <>
-                    {productSlider.numItems > handelNumpercomponant ? (
-                      <div className="d-flex gap-2">
-                        <div
-                          onClick={() =>
-                            Previse(setProductSlider, handelNumpercomponant)
-                          }
-                          className="btnTemp d-flex align-items-center gap-2 py-2 px-3"
-                        >
-                          <LuMoveLeft className="LuMoveLeft" />
-                        </div>
-                        <div
-                          onClick={() =>
-                            Next(setProductSlider, handelNumpercomponant)
-                          }
-                          className="btnTemp d-flex align-items-center gap-2 py-2 px-3"
-                        >
-                          <span className="d-none d-md-block">Next Page</span>
-                          <LuMoveRight className="LuMoveRight" />
-                        </div>
-                      </div>
-                    ) : (
-                      <div
-                        onClick={() =>
-                          Previse(setProductSlider, handelNumpercomponant)
-                        }
-                        className="btnTemp d-flex align-items-center gap-2 py-2 px-3"
-                      >
-                        <LuMoveLeft className="LuMoveLeft" />
-                        <span className="d-none d-md-block">prev Page</span>
-                      </div>
-                    )}
-                  </>
-                )}
-              </>
-            ) : (
-              ""
-            )}
+        {/* Infinite scroll sentinel */}
+        <div ref={sentinelRef} className="nftSentinel" />
+
+        {/* Loading spinner */}
+        {loading && (
+          <div className="nftLoadingSpinner">
+            <span className="nftSpinDot" />
+            <span className="nftSpinDot" />
+            <span className="nftSpinDot" />
           </div>
-        </div>
+        )}
+
+        {/* End of list message */}
+        {!loading && visibleCount >= activeList.length && activeList.length > 0 && (
+          <div className="nftEndMessage">
+            You've seen all {activeList.length} NFTs
+          </div>
+        )}
       </div>
     </section>
   );
