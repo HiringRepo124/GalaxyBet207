@@ -8,21 +8,14 @@ import { PiYoutubeLogoLight } from "react-icons/pi";
 import { IoLogoInstagram } from "react-icons/io";
 import { FaXTwitter } from "react-icons/fa6";
 import { MdVerified } from "react-icons/md";
-import Toast, { useToast } from "../../../../../../components/Toast/Toast";
 
 const UserInfo = ({ rowData, serBodyComponant }) => {
-  const { toast, showToast } = useToast();
-
   const handleCopyUserId = () => {
     const userId = rowData.Access.systemRequerd.userID;
-    navigator.clipboard.writeText(userId).then(() => {
-      showToast(`Copied: ${userId}`, "success", 2000);
-    });
+    navigator.clipboard.writeText(userId);
   };
   return (
-    <>
-      <Toast message={toast?.message} type={toast?.type} />
-      <section id="userAcount">
+    <section id="userAcount">
       <div
         className="profilePanner mb-5"
         style={{
@@ -143,7 +136,7 @@ const UserInfo = ({ rowData, serBodyComponant }) => {
                   {rowData.Access.accountInfo.userLinks.instgramLink.length !=
                     0 && (
                     <a
-                      href={rowData.Access.userInfo.userLinks.instgramLink}
+                      href={rowData.Access.accountInfo.userLinks.instgramLink}
                       className="linkIcon me-2"
                       target="_blank"
                     >
@@ -173,7 +166,6 @@ const UserInfo = ({ rowData, serBodyComponant }) => {
       </div>
       <hr className="mb-3 mt-4" />
     </section>
-    </>
   );
 };
 

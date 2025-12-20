@@ -9,11 +9,9 @@ import { PiYoutubeLogoLight } from "react-icons/pi";
 import { IoLogoInstagram } from "react-icons/io";
 import { FaXTwitter } from "react-icons/fa6";
 import { MdVerified } from "react-icons/md";
-import Toast, { useToast } from "../../../../../../components/Toast/Toast";
 
 const UserInfo = ({ userInfromation }) => {
   const [isFollowed, setIsFollowed] = useState(false);
-  const { toast, showToast } = useToast();
 
   const userLinksIcon = {
     faceBook: PiFacebookLogoLight,
@@ -25,24 +23,15 @@ const UserInfo = ({ userInfromation }) => {
 
   const handleCopyUserId = () => {
     const userId = userInfromation.userID;
-    navigator.clipboard.writeText(userId).then(() => {
-      showToast(`Copied: ${userId}`, "success", 2000);
-    });
+    navigator.clipboard.writeText(userId);
   };
 
   const handleFollowUser = () => {
     setIsFollowed(!isFollowed);
-    showToast(
-      isFollowed ? "Unfollowed" : "Followed",
-      "success",
-      2000
-    );
   };
 
   return (
-    <>
-      <Toast message={toast?.message} type={toast?.type} />
-      <section id="memberAcount">
+    <section id="memberAcount">
       <div
         className="profilePanner mb-5"
         style={{ backgroundImage: `url('${userInfromation.userPanar}')` }}
@@ -139,7 +128,6 @@ const UserInfo = ({ userInfromation }) => {
         </div>
       </div>
     </section>
-    </>
   );
 };
 
