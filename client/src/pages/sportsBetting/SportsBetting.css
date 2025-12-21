@@ -1,0 +1,229 @@
+#sportsBetting {
+  background: radial-gradient(circle at 12% 12%, rgba(255, 230, 120, 0.08), transparent 45%),
+    radial-gradient(circle at 88% 70%, rgba(20, 241, 149, 0.08), transparent 45%),
+    var(--gray);
+}
+
+#sportsBetting .sbCard {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: var(--_15px);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
+}
+
+#sportsBetting .sbTitle {
+  color: var(--white);
+  font-family: Rubik-B;
+}
+
+#sportsBetting .sbBadge {
+  border: 1px solid rgba(20, 241, 149, 0.5);
+  color: #14f195;
+  font-family: SpaceMono-R;
+  font-size: 0.75rem;
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+}
+
+#sportsBetting .eventList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+#sportsBetting .eventItem {
+  all: unset;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--_10px);
+  padding: 0.9rem;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+#sportsBetting .eventItem:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 230, 120, 0.7);
+}
+
+#sportsBetting .eventItem.active {
+  background: rgba(255, 230, 120, 0.12);
+  border-color: rgba(255, 230, 120, 0.8);
+}
+
+#sportsBetting .eventTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.35rem;
+}
+
+#sportsBetting .eventLeague {
+  color: var(--dark-white);
+  font-family: WorkSans-S;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+}
+
+#sportsBetting .eventTrend {
+  font-size: 0.7rem;
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+  font-family: WorkSans-S;
+}
+
+#sportsBetting .eventTrend.hot {
+  color: #ffd54f;
+  background: rgba(255, 213, 79, 0.14);
+}
+
+#sportsBetting .eventTrend.rising,
+#sportsBetting .eventTrend.live {
+  color: #14f195;
+  background: rgba(20, 241, 149, 0.14);
+}
+
+#sportsBetting .eventTrend.stable {
+  color: #7ea6ff;
+  background: rgba(126, 166, 255, 0.14);
+}
+
+#sportsBetting .eventMatch {
+  display: block;
+  color: var(--white);
+  font-family: Rubik-M;
+}
+
+#sportsBetting .eventTime {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--dark-white);
+  opacity: 0.8;
+  font-size: 0.85rem;
+  font-family: WorkSans-M;
+}
+
+#sportsBetting .slipSection {
+  margin-bottom: 0.95rem;
+}
+
+#sportsBetting .slipLabel {
+  display: block;
+  color: var(--dark-white);
+  font-family: WorkSans-S;
+  font-size: 0.78rem;
+  margin-bottom: 0.45rem;
+  text-transform: uppercase;
+}
+
+#sportsBetting .slipValue {
+  color: var(--white);
+  font-family: Rubik-M;
+}
+
+#sportsBetting .pickButtons {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+#sportsBetting .pickButtons button,
+#sportsBetting .coinBtn {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: transparent;
+  color: var(--dark-white);
+  border-radius: var(--_8px);
+  padding: 0.55rem 0.6rem;
+  font-family: WorkSans-S;
+  font-size: 0.82rem;
+  transition: all 0.2s ease;
+}
+
+#sportsBetting .pickButtons button:hover,
+#sportsBetting .coinBtn:hover {
+  border-color: rgba(255, 255, 255, 0.35);
+  color: var(--white);
+}
+
+#sportsBetting .pickButtons button.active,
+#sportsBetting .coinBtn.active {
+  border-color: var(--lemon);
+  color: var(--black);
+  background: var(--lemon);
+}
+
+#sportsBetting .coinRow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+#sportsBetting .coinBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+#sportsBetting .stakeInput {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--_8px);
+  color: var(--white);
+  padding: 0.6rem 0.75rem;
+  outline: none;
+  font-family: SpaceMono-R;
+}
+
+#sportsBetting .stakeInput:focus {
+  border-color: var(--lemon);
+}
+
+#sportsBetting .payoutBox {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--_10px);
+  padding: 0.7rem 0.8rem;
+  color: var(--white);
+  font-family: SpaceMono-R;
+  font-size: 0.86rem;
+}
+
+#sportsBetting .placeBetBtn {
+  width: 100%;
+  border: none;
+  border-radius: var(--_8px);
+  padding: 0.72rem;
+  background: linear-gradient(90deg, var(--lemon), #ffe169);
+  color: var(--black);
+  font-family: Rubik-B;
+  transition: filter 0.2s ease;
+}
+
+#sportsBetting .placeBetBtn:hover {
+  filter: brightness(0.95);
+}
+
+#sportsBetting .slipHint {
+  color: var(--dark-white);
+  opacity: 0.7;
+  font-family: WorkSans-M;
+  font-size: 0.75rem;
+}
+
+@media (max-width: 991px) {
+  #sportsBetting .eventList {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 575px) {
+  #sportsBetting .pickButtons {
+    grid-template-columns: 1fr;
+  }
+
+  #sportsBetting .coinRow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

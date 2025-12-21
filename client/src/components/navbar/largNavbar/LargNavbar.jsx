@@ -15,6 +15,7 @@ const Data = {
     { name: "Home", link: "/home" },
     { name: "Marketplace", link: "/nfts" },
     { name: "Trading", link: "/trading" },
+    { name: "Sports", link: "/sports-betting" },
     { name: "Rankings", link: "/rankings" },
     { name: "Support", link: "/support" },
   ],
