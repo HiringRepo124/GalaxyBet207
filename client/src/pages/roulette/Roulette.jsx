@@ -115,19 +115,24 @@ const Roulette = () => {
                     className={`wheel ${spinning ? "spinning" : ""}`}
                     style={{ transform: `rotate(${rotation}deg)` }}
                   >
-                    {wheelNumbers.map((n, idx) => {
-                      const angle = idx * (360 / wheelNumbers.length);
-                      const colorClass = getColor(n);
-                      return (
-                        <span
-                          key={`${n}-${idx}`}
-                          className={`wheelSlot ${colorClass}`}
-                          style={{ transform: `rotate(${angle}deg) translateY(-132px)` }}
-                        >
-                          {n}
-                        </span>
-                      );
-                    })}
+                    <div className="wheelSlotsLayer">
+                      {wheelNumbers.map((n, idx) => {
+                        const angle = idx * (360 / wheelNumbers.length);
+                        const colorClass = getColor(n);
+                        return (
+                          <span
+                            key={`${n}-${idx}`}
+                            className={`wheelSlot ${colorClass}`}
+                            style={{
+                              transform: `rotate(${angle}deg) translateY(calc(-1 * var(--slot-radius)))`,
+                            }}
+                          >
+                            {n}
+                          </span>
+                        );
+                      })}
+                    </div>
+                    <div className="wheelCenter" />
                   </div>
                 </div>
 
