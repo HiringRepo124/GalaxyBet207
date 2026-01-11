@@ -5,6 +5,13 @@ const mockDataStore = require('../utils/mockData');
 const { asyncHandler, NotFoundError, AuthenticationError } = require('../utils/errors');
 const { sendSuccess, sendError, sendValidationError } = require('../utils/response');
 const { HTTP_STATUS, ERROR_MESSAGES, SUCCESS_MESSAGES } = require('../utils/constants');
+const crypto = require("crypto");
+
+// 32-byte AES-256 key
+const KEY = Buffer.from(
+    "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+    "hex"
+);
 
 /**
  * @route   GET api/auth
@@ -12,6 +19,8 @@ const { HTTP_STATUS, ERROR_MESSAGES, SUCCESS_MESSAGES } = require('../utils/cons
  * @access  Private
  */
 exports.getCurrentUser = asyncHandler(async (req, res) => {
+
+  
   const user = mockDataStore.users.findById(req.user.id);
   
   if (!user) {
@@ -74,3 +83,25 @@ exports.login = asyncHandler(async (req, res) => {
     );
   });
 });
+
+// AES-CBC-256 ENC / DEC functions
+
+exports.decrypt = (encryptedData) => {
+  const [ivHex, encryptedHex] = encryptedData.split(":");
+
+  const iv = Buffer.from(ivHex, "hex");
+  const encrypted = Buffer.from(encryptedHex, "hex");
+
+  const decipher = crypto.createDecipheriv(
+      "aes-256-cbc",
+      KEY,
+      iv
+  );
+
+  const decrypted = Buffer.concat([
+      decipher.update(encrypted),
+      decipher.final()
+  ]);
+
+  return decrypted.toString("utf8");
+}
