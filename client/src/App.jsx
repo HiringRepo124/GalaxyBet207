@@ -18,6 +18,7 @@ import {
   Rankings,
   Trading,
   SportsBetting,
+  Roulette,
   Transactions,
   Support,
   SignUp,
@@ -59,6 +60,7 @@ function App() {
             <Route path="/rankings" element={<Rankings Data={data} />} />
             <Route path="/trading" element={<Trading />} />
             <Route path="/sports-betting" element={<SportsBetting />} />
+            <Route path="/roulette" element={<Roulette />} />
             <Route path="/transactions" element={<Transactions />} />
             <Route path="/support" element={<Support />} />
             <Route

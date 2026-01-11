@@ -9,6 +9,7 @@ import { GiBrodieHelmet } from "react-icons/gi";
 import { FaRankingStar } from "react-icons/fa6";
 import { MdOutlineSupportAgent } from "react-icons/md";
 import { MdSportsSoccer } from "react-icons/md";
+import { GiRollingDices } from "react-icons/gi";
 import { AiOutlineBarChart, AiOutlineHistory } from "react-icons/ai";
 
 const SomleNavbar = ({ rowData }) => {
@@ -21,6 +22,7 @@ const SomleNavbar = ({ rowData }) => {
       { name: "Marketplace", icon: GiBrodieHelmet, link: "/nfts" },
       { name: "Trading", icon: AiOutlineBarChart, link: "/trading" },
       { name: "Sports", icon: MdSportsSoccer, link: "/sports-betting" },
+      { name: "Roulette", icon: GiRollingDices, link: "/roulette" },
       { name: "Transactions", icon: AiOutlineHistory, link: "/transactions" },
       { name: "Rankings", icon: FaRankingStar, link: "/rankings" },
       { name: "Support", icon: MdOutlineSupportAgent, link: "/support" },
