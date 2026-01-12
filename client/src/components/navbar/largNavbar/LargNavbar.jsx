@@ -17,6 +17,7 @@ const Data = {
     { name: "Trading", link: "/trading" },
     { name: "Sports", link: "/sports-betting" },
     { name: "Roulette", link: "/roulette" },
+    { name: "Staking", link: "/staking" },
     { name: "Rankings", link: "/rankings" },
     { name: "Support", link: "/support" },
   ],

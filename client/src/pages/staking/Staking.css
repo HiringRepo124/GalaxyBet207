@@ -1,0 +1,199 @@
+#staking {
+  background: radial-gradient(circle at 12% 10%, rgba(255, 230, 120, 0.08), transparent 42%),
+    radial-gradient(circle at 90% 78%, rgba(111, 124, 255, 0.09), transparent 45%),
+    var(--gray);
+}
+
+#staking .stakingCard {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: var(--_15px);
+  box-shadow: 0 24px 44px rgba(0, 0, 0, 0.22);
+}
+
+#staking .stakingTitle {
+  color: var(--white);
+  font-family: Rubik-B;
+}
+
+#staking .aprBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid rgba(20, 241, 149, 0.45);
+  color: #14f195;
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+  font-family: SpaceMono-R;
+  font-size: 0.76rem;
+}
+
+#staking .poolList {
+  display: grid;
+  gap: 0.8rem;
+}
+
+#staking .poolItem {
+  all: unset;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: var(--_10px);
+  padding: 0.8rem 0.9rem;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+#staking .poolItem:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+#staking .poolItem.active {
+  border-color: rgba(255, 230, 120, 0.8);
+  background: rgba(255, 230, 120, 0.12);
+}
+
+#staking .poolTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+#staking .poolName {
+  color: var(--white);
+  font-family: Rubik-M;
+}
+
+#staking .riskTag {
+  font-size: 0.72rem;
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+  font-family: WorkSans-S;
+}
+
+#staking .riskTag.low {
+  background: rgba(20, 241, 149, 0.16);
+  color: #14f195;
+}
+
+#staking .riskTag.medium {
+  background: rgba(255, 213, 79, 0.16);
+  color: #ffd54f;
+}
+
+#staking .riskTag.high {
+  background: rgba(255, 122, 122, 0.16);
+  color: #ff7a7a;
+}
+
+#staking .poolGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+#staking .metaLabel {
+  display: block;
+  color: var(--dark-white);
+  opacity: 0.75;
+  font-size: 0.7rem;
+  font-family: WorkSans-S;
+  text-transform: uppercase;
+}
+
+#staking .metaValue {
+  display: block;
+  color: var(--white);
+  font-size: 0.85rem;
+  font-family: SpaceMono-R;
+  margin-top: 0.2rem;
+}
+
+#staking .stakeSection {
+  margin-bottom: 0.95rem;
+}
+
+#staking .stakeLabel {
+  display: block;
+  color: var(--dark-white);
+  font-size: 0.78rem;
+  font-family: WorkSans-S;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+#staking .stakeValue {
+  color: var(--white);
+  font-family: Rubik-M;
+}
+
+#staking .stakeInput {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--white);
+  border-radius: var(--_8px);
+  padding: 0.65rem 0.75rem;
+  outline: none;
+  font-family: SpaceMono-R;
+}
+
+#staking .stakeInput:focus {
+  border-color: var(--lemon);
+}
+
+#staking .rewardBox {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--_10px);
+  padding: 0.75rem 0.85rem;
+  color: var(--white);
+  font-family: SpaceMono-R;
+  font-size: 0.86rem;
+}
+
+#staking .stakeBtn,
+#staking .unstakeBtn {
+  width: 100%;
+  border-radius: var(--_8px);
+  padding: 0.72rem;
+  font-family: Rubik-B;
+}
+
+#staking .stakeBtn {
+  border: none;
+  color: var(--black);
+  background: linear-gradient(90deg, var(--lemon), #ffe169);
+}
+
+#staking .unstakeBtn {
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: var(--white);
+  background: transparent;
+}
+
+#staking .stakeBtn:hover,
+#staking .unstakeBtn:hover {
+  filter: brightness(0.95);
+}
+
+#staking .stakeHint {
+  color: var(--dark-white);
+  opacity: 0.72;
+  font-size: 0.75rem;
+  font-family: WorkSans-M;
+}
+
+@media (max-width: 991px) {
+  #staking .poolGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 575px) {
+  #staking .poolTop {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

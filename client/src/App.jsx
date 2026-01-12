@@ -19,6 +19,7 @@ import {
   Trading,
   SportsBetting,
   Roulette,
+  Staking,
   Transactions,
   Support,
   SignUp,
@@ -61,6 +62,7 @@ function App() {
             <Route path="/trading" element={<Trading />} />
             <Route path="/sports-betting" element={<SportsBetting />} />
             <Route path="/roulette" element={<Roulette />} />
+            <Route path="/staking" element={<Staking />} />
             <Route path="/transactions" element={<Transactions />} />
             <Route path="/support" element={<Support />} />
             <Route
