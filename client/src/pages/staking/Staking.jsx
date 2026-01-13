@@ -1,32 +1,14 @@
 import "./Staking.css";
 import { Helmet } from "react-helmet-async";
 import { useState } from "react";
-import { FiSearch, FiBarChart2, FiFlag, FiLock } from "react-icons/fi";
+import { FiBarChart2, FiFlag, FiLock } from "react-icons/fi";
 import { GiPokerHand, GiTwoCoins } from "react-icons/gi";
-import { IoFootballOutline, IoStatsChartOutline } from "react-icons/io5";
-import { MdOutlineAccountBalanceWallet, MdOutlineSupportAgent } from "react-icons/md";
+import { IoFootballOutline } from "react-icons/io5";
 
 const yearlyStats = [
   { icon: <FiBarChart2 />, title: "Crypto Predict", value: "0.346543" },
   { icon: <GiPokerHand />, title: "Poker", value: "0.346543" },
   { icon: <IoFootballOutline />, title: "Sport Betting", value: "0.346543" },
-];
-
-const sideNav = [
-  "Staking",
-  "Affiliate & Binary",
-  "Free BET token",
-  "Academy",
-  "Become a partner",
-];
-
-const gameNav = [
-  "Crypto predict",
-  "Sport betting",
-  "Roulette",
-  "Poker",
-  "Blackjack",
-  "Slots",
 ];
 
 const chatItems = [
@@ -90,63 +72,9 @@ const Staking = () => {
       <section id="stakingDashboard" className="mt-3 mb-5">
         <div className="container-fluid stakingShell">
           <div className="row g-3">
-            <div className="col-12 col-xl-2">
-              <aside className="leftPanel panelCard h-100">
-                <div className="marketCard">
-                  <div className="marketHead">
-                    <span>BET/USDT</span>
-                    <span className="marketArrow">&gt;</span>
-                  </div>
-                  <div className="fakeChart" />
-                  <div className="marketFoot">
-                    <span>$ 0.0452312</span>
-                    <span>+ 3.75%</span>
-                  </div>
-                </div>
-
-                <div className="menuGroup mt-4">
-                  <span className="menuTitle">NAVIGATION</span>
-                  {sideNav.map((item) => (
-                    <button key={item} className="menuItem" type="button">
-                      <MdOutlineAccountBalanceWallet />
-                      <span>{item}</span>
-                    </button>
-                  ))}
-                </div>
-
-                <div className="menuGroup mt-3">
-                  <span className="menuTitle">BETFIN GAMES</span>
-                  {gameNav.map((item) => (
-                    <button key={item} className="menuItem" type="button">
-                      <IoStatsChartOutline />
-                      <span>{item}</span>
-                    </button>
-                  ))}
-                </div>
-
-                <div className="leftBottom mt-3">
-                  <button className="menuItem" type="button">
-                    <MdOutlineSupportAgent />
-                    <span>Support</span>
-                  </button>
-                </div>
-              </aside>
-            </div>
-
-            <div className="col-12 col-xl-7">
+            <div className="col-12 col-xl-9">
               <div className="centerPanel">
-                <div className="topToolbar panelCard">
-                  <div className="toolbarSearch">
-                    <FiSearch />
-                    <input type="text" placeholder="Search" />
-                  </div>
-                  <div className="toolbarWallet">
-                    <span>3,500,100 Bet</span>
-                    <span>0x52...331</span>
-                  </div>
-                </div>
-
-                <div className="overview panelCard mt-3">
+                <div className="overview panelCard">
                   <div className="overviewHead">
                     <div className="stakeType">
                       <GiTwoCoins />
