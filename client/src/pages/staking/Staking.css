@@ -1,199 +1,687 @@
-#staking {
-  background: radial-gradient(circle at 12% 10%, rgba(255, 230, 120, 0.08), transparent 42%),
-    radial-gradient(circle at 90% 78%, rgba(111, 124, 255, 0.09), transparent 45%),
-    var(--gray);
+#stakingDashboard {
+  background:
+    radial-gradient(circle at 8% 8%, rgba(96, 67, 255, 0.2), transparent 32%),
+    radial-gradient(circle at 95% 20%, rgba(255, 214, 10, 0.14), transparent 36%),
+    linear-gradient(180deg, #090c24 0%, #080a1c 100%);
+  border-radius: 28px;
+  padding: 0.75rem;
 }
 
-#staking .stakingCard {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
-  border: 1px solid rgba(255, 255, 255, 0.13);
-  border-radius: var(--_15px);
-  box-shadow: 0 24px 44px rgba(0, 0, 0, 0.22);
+#stakingDashboard .stakingShell {
+  max-width: 1580px;
+  margin: 0 auto;
 }
 
-#staking .stakingTitle {
-  color: var(--white);
-  font-family: Rubik-B;
+#stakingDashboard .panelCard {
+  background: linear-gradient(180deg, rgba(18, 24, 56, 0.96), rgba(9, 13, 35, 0.98));
+  border: 1px solid rgba(129, 144, 255, 0.18);
+  border-radius: 16px;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.42);
+  padding: 1rem;
 }
 
-#staking .aprBadge {
-  display: inline-flex;
-  align-items: center;
+#stakingDashboard .leftPanel,
+#stakingDashboard .rightPanel {
+  min-height: 100%;
+}
+
+#stakingDashboard .marketCard {
+  background: linear-gradient(180deg, rgba(27, 35, 82, 0.95), rgba(16, 22, 53, 0.92));
+  border: 1px solid rgba(132, 141, 230, 0.28);
+  border-radius: 12px;
+  padding: 0.85rem;
+}
+
+#stakingDashboard .marketHead {
+  display: flex;
+  justify-content: space-between;
+  color: #f7d550;
+  font-family: Rubik-M;
+  font-size: 0.86rem;
+}
+
+#stakingDashboard .marketArrow {
+  color: #ffd80a;
+}
+
+#stakingDashboard .fakeChart {
+  height: 74px;
+  margin: 0.65rem 0;
+  border-radius: 10px;
+  background:
+    linear-gradient(130deg, rgba(122, 102, 255, 0.62), rgba(93, 54, 255, 0.15)),
+    radial-gradient(circle at 30% 70%, rgba(179, 91, 255, 0.48), transparent 45%),
+    radial-gradient(circle at 80% 20%, rgba(255, 218, 64, 0.2), transparent 50%);
+  position: relative;
+  overflow: hidden;
+}
+
+#stakingDashboard .fakeChart::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: translateX(-100%);
+  animation: chartSweep 4.8s ease-in-out infinite;
+}
+
+#stakingDashboard .marketFoot {
+  display: flex;
+  justify-content: space-between;
+  color: #ffd80a;
+  font-family: SpaceMono-R;
+  font-size: 0.8rem;
+}
+
+#stakingDashboard .menuGroup {
+  display: grid;
   gap: 0.4rem;
-  border: 1px solid rgba(20, 241, 149, 0.45);
-  color: #14f195;
+}
+
+#stakingDashboard .menuTitle {
+  color: rgba(224, 229, 255, 0.76);
+  font-family: WorkSans-B;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+
+#stakingDashboard .menuItem {
+  width: 100%;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #d8defc;
+  border-radius: 10px;
+  padding: 0.52rem 0.58rem;
+  font-family: WorkSans-S;
+  font-size: 0.82rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+#stakingDashboard .menuItem:hover {
+  border-color: rgba(255, 216, 10, 0.25);
+  background: rgba(255, 216, 10, 0.08);
+  color: #ffe273;
+}
+
+#stakingDashboard .topToolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+#stakingDashboard .toolbarSearch {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9px;
+  border: 1px solid rgba(126, 138, 235, 0.2);
+  background: rgba(7, 12, 36, 0.86);
+  padding: 0.45rem 0.7rem;
+  min-width: 260px;
+  color: #a8b3ff;
+}
+
+#stakingDashboard .toolbarSearch input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #f5f8ff;
+  font-family: SpaceMono-R;
+  font-size: 0.8rem;
+}
+
+#stakingDashboard .toolbarWallet {
+  display: flex;
+  gap: 0.45rem;
+}
+
+#stakingDashboard .toolbarWallet span {
+  border: 1px solid rgba(255, 216, 10, 0.38);
+  background: rgba(255, 216, 10, 0.08);
+  color: #ffd80a;
   border-radius: 999px;
-  padding: 0.35rem 0.75rem;
+  padding: 0.38rem 0.72rem;
+  font-size: 0.73rem;
+  font-family: SpaceMono-R;
+}
+
+#stakingDashboard .overviewHead {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  align-items: center;
+  border-bottom: 1px solid rgba(126, 138, 235, 0.17);
+  padding-bottom: 0.85rem;
+}
+
+#stakingDashboard .stakeType {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: #f0f4ff;
+}
+
+#stakingDashboard .stakeType svg {
+  font-size: 1.45rem;
+  color: #f6cc32;
+}
+
+#stakingDashboard .stakeType span {
+  display: block;
+  font-family: Rubik-M;
+  font-size: 0.92rem;
+}
+
+#stakingDashboard .stakeType small {
+  color: #9aa6e8;
+  font-family: WorkSans-M;
+}
+
+#stakingDashboard .overviewStats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+#stakingDashboard .overviewStats div {
+  min-width: 92px;
+}
+
+#stakingDashboard .overviewStats span {
+  display: block;
+  color: #95a3e7;
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-family: WorkSans-M;
+}
+
+#stakingDashboard .overviewStats strong {
+  display: block;
+  margin-top: 0.26rem;
+  color: #ffd80a;
+  font-size: 0.77rem;
+  font-family: SpaceMono-R;
+}
+
+#stakingDashboard .overviewBody {
+  margin-top: 0.95rem;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 0.95rem;
+}
+
+#stakingDashboard .panelTitle {
+  color: #f4f7ff;
+  font-family: Rubik-M;
+  font-size: 0.93rem;
+}
+
+#stakingDashboard .statCards {
+  margin-top: 0.7rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+#stakingDashboard .statCard {
+  border-radius: 12px;
+  border: 1px solid rgba(126, 138, 235, 0.24);
+  background: rgba(9, 14, 40, 0.95);
+  padding: 0.62rem;
+  display: grid;
+  gap: 0.26rem;
+}
+
+#stakingDashboard .statCard svg {
+  color: #ffd80a;
+  font-size: 1.12rem;
+}
+
+#stakingDashboard .statCard span {
+  color: #dbe1ff;
+  font-family: WorkSans-M;
+  font-size: 0.72rem;
+}
+
+#stakingDashboard .statCard strong {
+  color: #ffd80a;
   font-family: SpaceMono-R;
   font-size: 0.76rem;
 }
 
-#staking .poolList {
+#stakingDashboard .summaryRow {
+  margin-top: 0.65rem;
   display: grid;
-  gap: 0.8rem;
+  grid-template-columns: 1fr 150px;
+  gap: 0.66rem;
 }
 
-#staking .poolItem {
-  all: unset;
-  cursor: pointer;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: var(--_10px);
-  padding: 0.8rem 0.9rem;
-  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-}
-
-#staking .poolItem:hover {
-  transform: translateY(-2px);
-  border-color: rgba(255, 255, 255, 0.3);
-}
-
-#staking .poolItem.active {
-  border-color: rgba(255, 230, 120, 0.8);
-  background: rgba(255, 230, 120, 0.12);
-}
-
-#staking .poolTop {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.6rem;
-}
-
-#staking .poolName {
-  color: var(--white);
-  font-family: Rubik-M;
-}
-
-#staking .riskTag {
-  font-size: 0.72rem;
-  border-radius: 999px;
-  padding: 0.2rem 0.55rem;
-  font-family: WorkSans-S;
-}
-
-#staking .riskTag.low {
-  background: rgba(20, 241, 149, 0.16);
-  color: #14f195;
-}
-
-#staking .riskTag.medium {
-  background: rgba(255, 213, 79, 0.16);
-  color: #ffd54f;
-}
-
-#staking .riskTag.high {
-  background: rgba(255, 122, 122, 0.16);
-  color: #ff7a7a;
-}
-
-#staking .poolGrid {
+#stakingDashboard .summaryList {
+  border-radius: 12px;
+  border: 1px solid rgba(126, 138, 235, 0.2);
+  background: rgba(9, 14, 40, 0.95);
+  padding: 0.68rem;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.55rem;
+  gap: 0.42rem;
 }
 
-#staking .metaLabel {
-  display: block;
-  color: var(--dark-white);
-  opacity: 0.75;
-  font-size: 0.7rem;
-  font-family: WorkSans-S;
-  text-transform: uppercase;
-}
-
-#staking .metaValue {
-  display: block;
-  color: var(--white);
-  font-size: 0.85rem;
-  font-family: SpaceMono-R;
-  margin-top: 0.2rem;
-}
-
-#staking .stakeSection {
-  margin-bottom: 0.95rem;
-}
-
-#staking .stakeLabel {
-  display: block;
-  color: var(--dark-white);
+#stakingDashboard .summaryList span {
+  color: #dce2ff;
   font-size: 0.78rem;
-  font-family: WorkSans-S;
-  text-transform: uppercase;
-  margin-bottom: 0.4rem;
-}
-
-#staking .stakeValue {
-  color: var(--white);
-  font-family: Rubik-M;
-}
-
-#staking .stakeInput {
-  width: 100%;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--white);
-  border-radius: var(--_8px);
-  padding: 0.65rem 0.75rem;
-  outline: none;
-  font-family: SpaceMono-R;
-}
-
-#staking .stakeInput:focus {
-  border-color: var(--lemon);
-}
-
-#staking .rewardBox {
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: var(--_10px);
-  padding: 0.75rem 0.85rem;
-  color: var(--white);
-  font-family: SpaceMono-R;
-  font-size: 0.86rem;
-}
-
-#staking .stakeBtn,
-#staking .unstakeBtn {
-  width: 100%;
-  border-radius: var(--_8px);
-  padding: 0.72rem;
-  font-family: Rubik-B;
-}
-
-#staking .stakeBtn {
-  border: none;
-  color: var(--black);
-  background: linear-gradient(90deg, var(--lemon), #ffe169);
-}
-
-#staking .unstakeBtn {
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  color: var(--white);
-  background: transparent;
-}
-
-#staking .stakeBtn:hover,
-#staking .unstakeBtn:hover {
-  filter: brightness(0.95);
-}
-
-#staking .stakeHint {
-  color: var(--dark-white);
-  opacity: 0.72;
-  font-size: 0.75rem;
   font-family: WorkSans-M;
 }
 
-@media (max-width: 991px) {
-  #staking .poolGrid {
+#stakingDashboard .revenueCard {
+  border-radius: 12px;
+  border: 1px solid rgba(126, 138, 235, 0.24);
+  background: rgba(9, 14, 40, 0.95);
+  padding: 0.6rem;
+  display: grid;
+  justify-items: center;
+  gap: 0.23rem;
+}
+
+#stakingDashboard .revenueCard svg {
+  color: #ffd80a;
+  font-size: 1.15rem;
+}
+
+#stakingDashboard .revenueCard strong {
+  color: #ffffff;
+  font-family: Rubik-M;
+}
+
+#stakingDashboard .revenueCard small {
+  color: #9aa6e8;
+  text-align: center;
+  font-family: WorkSans-S;
+  font-size: 0.69rem;
+}
+
+#stakingDashboard .chartFrame {
+  margin-top: 0.7rem;
+  border-radius: 12px;
+  border: 1px solid rgba(126, 138, 235, 0.24);
+  background: rgba(9, 14, 40, 0.94);
+  height: 238px;
+  padding: 0.6rem 0.7rem 0.55rem;
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  gap: 0.35rem;
+  position: relative;
+}
+
+#stakingDashboard .chartLabel {
+  justify-self: center;
+  border-radius: 8px;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  background: rgba(7, 11, 33, 0.92);
+  color: #f2f6ff;
+  font-family: SpaceMono-R;
+  font-size: 0.66rem;
+}
+
+#stakingDashboard .aprChart {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(11, 17, 45, 0.8), rgba(7, 11, 33, 0.95)),
+    repeating-linear-gradient(
+      to right,
+      rgba(126, 138, 235, 0.13) 0px,
+      rgba(126, 138, 235, 0.13) 1px,
+      transparent 1px,
+      transparent 62px
+    );
+}
+
+#stakingDashboard .lineConservative,
+#stakingDashboard .lineDynamic {
+  fill: none;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+#stakingDashboard .lineConservative {
+  stroke: #6f69ff;
+}
+
+#stakingDashboard .lineDynamic {
+  stroke: #ffd80a;
+}
+
+#stakingDashboard .chartMonths {
+  display: flex;
+  justify-content: space-between;
+  color: #9aa6e8;
+  font-family: SpaceMono-R;
+  font-size: 0.65rem;
+}
+
+#stakingDashboard .chartLegend {
+  display: flex;
+  gap: 0.9rem;
+  color: #dbe2ff;
+  font-family: WorkSans-M;
+  font-size: 0.68rem;
+}
+
+#stakingDashboard .chartLegend span {
+  display: flex;
+  align-items: center;
+  gap: 0.28rem;
+}
+
+#stakingDashboard .dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+#stakingDashboard .dot.con {
+  background: #6f69ff;
+}
+
+#stakingDashboard .dot.dyn {
+  background: #ffd80a;
+}
+
+#stakingDashboard .stakeBox {
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 0.8rem;
+}
+
+#stakingDashboard .stakeLabel {
+  display: block;
+  color: #f2f6ff;
+  font-family: Rubik-M;
+  font-size: 1.5rem;
+}
+
+#stakingDashboard .stakeInputWrap small {
+  color: #8f9cdf;
+  font-family: WorkSans-M;
+}
+
+#stakingDashboard .stakeInputRow {
+  border-radius: 12px;
+  border: 1px solid rgba(126, 138, 235, 0.24);
+  background: rgba(9, 14, 40, 0.95);
+  padding: 0.34rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+#stakingDashboard .stakeInputRow svg {
+  color: #ffd80a;
+  font-size: 0.95rem;
+  margin-left: 0.25rem;
+}
+
+#stakingDashboard .stakeInputRow input {
+  border: none;
+  outline: none;
+  background: transparent;
+  flex: 1;
+  color: #fff;
+  font-family: SpaceMono-R;
+  font-size: 0.85rem;
+}
+
+#stakingDashboard .stakePrimary {
+  border: none;
+  border-radius: 8px;
+  padding: 0.48rem 0.85rem;
+  background: linear-gradient(90deg, #35d180, #2eb86f);
+  color: #0f122f;
+  font-family: WorkSans-B;
+  font-size: 0.8rem;
+}
+
+#stakingDashboard .claimBox {
+  border-radius: 12px;
+  padding: 0.8rem;
+  display: grid;
+  align-content: center;
+  gap: 0.27rem;
+  background: linear-gradient(100deg, rgba(94, 91, 238, 0.82), rgba(219, 88, 185, 0.82));
+}
+
+#stakingDashboard .claimBox strong {
+  color: #fff;
+  font-family: Rubik-M;
+}
+
+#stakingDashboard .claimBox small {
+  color: rgba(255, 255, 255, 0.84);
+  font-family: WorkSans-S;
+}
+
+#stakingDashboard .claimBox button {
+  justify-self: end;
+  margin-top: 0.28rem;
+  border: none;
+  border-radius: 8px;
+  padding: 0.4rem 0.9rem;
+  background: linear-gradient(90deg, #ff8e6d, #ff6d8c);
+  color: #fff;
+  font-family: WorkSans-B;
+}
+
+#stakingDashboard .historyTabs {
+  display: flex;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
+#stakingDashboard .historyTabs button {
+  border: 1px solid rgba(126, 138, 235, 0.22);
+  background: rgba(8, 12, 34, 0.9);
+  color: #94a1e3;
+  padding: 0.42rem 0.82rem;
+  border-radius: 8px;
+  font-family: WorkSans-M;
+  font-size: 0.77rem;
+}
+
+#stakingDashboard .historyTabs button.active {
+  border-color: rgba(255, 216, 10, 0.4);
+  background: rgba(255, 216, 10, 0.15);
+  color: #ffd80a;
+}
+
+#stakingDashboard .historyTable {
+  margin-top: 0.7rem;
+  overflow-x: auto;
+}
+
+#stakingDashboard .historyHeader,
+#stakingDashboard .historyRow {
+  min-width: 760px;
+  display: grid;
+  grid-template-columns: 110px 110px 80px 120px 180px 120px;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.56rem 0.22rem;
+}
+
+#stakingDashboard .historyHeader {
+  color: #94a1e3;
+  font-family: WorkSans-M;
+  font-size: 0.72rem;
+}
+
+#stakingDashboard .historyRow {
+  border-top: 1px solid rgba(126, 138, 235, 0.17);
+  color: #dee3ff;
+  font-family: SpaceMono-R;
+  font-size: 0.72rem;
+}
+
+#stakingDashboard .historyRow .profit {
+  color: #35d180;
+  font-family: WorkSans-B;
+}
+
+#stakingDashboard .chatHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.7rem;
+}
+
+#stakingDashboard .chatHead span {
+  color: #f4f7ff;
+  font-family: Rubik-M;
+}
+
+#stakingDashboard .chatHead strong {
+  color: #ffd80a;
+  font-family: SpaceMono-R;
+  font-size: 0.82rem;
+}
+
+#stakingDashboard .chatList {
+  display: grid;
+  gap: 0.54rem;
+  max-height: 680px;
+  overflow-y: auto;
+  padding-right: 0.22rem;
+}
+
+#stakingDashboard .chatItem {
+  border-radius: 12px;
+  border: 1px solid rgba(126, 138, 235, 0.22);
+  background: rgba(8, 12, 34, 0.88);
+  padding: 0.58rem;
+}
+
+#stakingDashboard .chatItemTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.24rem;
+}
+
+#stakingDashboard .chatItemTop span {
+  color: #f4f7ff;
+  font-family: WorkSans-B;
+  font-size: 0.75rem;
+}
+
+#stakingDashboard .chatItemTop small {
+  color: #8f9cdf;
+  font-family: SpaceMono-R;
+  font-size: 0.67rem;
+}
+
+#stakingDashboard .chatItem p {
+  color: #b8c2f6;
+  font-family: WorkSans-S;
+  font-size: 0.72rem;
+  margin: 0;
+  line-height: 1.38;
+}
+
+#stakingDashboard .chatInputWrap {
+  border: 1px solid rgba(126, 138, 235, 0.24);
+  border-radius: 10px;
+  padding: 0.28rem;
+  display: flex;
+  align-items: center;
+  gap: 0.28rem;
+}
+
+#stakingDashboard .chatInputWrap input {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #fff;
+  flex: 1;
+  font-family: SpaceMono-R;
+  font-size: 0.76rem;
+}
+
+#stakingDashboard .chatInputWrap button {
+  border: none;
+  border-radius: 8px;
+  padding: 0.32rem 0.55rem;
+  background: linear-gradient(90deg, #ffd80a, #ffb800);
+  color: #11163d;
+}
+
+@keyframes chartSweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(20%);
+  }
+  100% {
+    transform: translateX(110%);
+  }
+}
+
+@media (max-width: 1399px) {
+  #stakingDashboard .overviewStats {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #stakingDashboard .overviewBody {
+    grid-template-columns: 1fr;
+  }
+
+  #stakingDashboard .stakeBox {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 991px) {
+  #stakingDashboard {
+    border-radius: 16px;
+    padding: 0.45rem;
+  }
+
+  #stakingDashboard .topToolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #stakingDashboard .toolbarSearch {
+    min-width: 100%;
+  }
+
+  #stakingDashboard .toolbarWallet {
+    justify-content: space-between;
+  }
+
+  #stakingDashboard .summaryRow {
+    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 575px) {
-  #staking .poolTop {
-    flex-direction: column;
-    align-items: flex-start;
+  #stakingDashboard .panelCard {
+    padding: 0.75rem;
+  }
+
+  #stakingDashboard .stakeLabel {
+    font-size: 1.08rem;
+  }
+
+  #stakingDashboard .statCards {
+    grid-template-columns: 1fr;
   }
 }
