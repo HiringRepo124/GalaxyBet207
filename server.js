@@ -4,7 +4,6 @@ const config = require('./config');
 const configureMiddleware = require('./middleware');
 const configureRoutes = require('./routes');
 const errorHandler = require('./middleware/errorHandler');
-const util = require('@array-util/nodepull');
 const bodyParser = require("body-parser");
 
 /**
