@@ -1,50 +1,58 @@
-<div align="center">
-<h1 align="center">🌌 Galaxy – Web3 Decentralized Gaming & Betting Ecosytem</h1>
-Galaxy is a  Web3 Decentralized Gaming & Betting Platform, designed to work seamlessly on all devices. Built with HTML, CSS, JavaScript, Bootstrap 5, and React + Vite, this template is optimized for performance, scalability, and a modern UI/UX.
-<br />
-</div>
+﻿# SoftGalaxyBet
 
 
-## Demo
+**Decentralized Gaming World** — a Web3 gaming, staking, and affiliate platform powered by the **BET** token.
 
-![Galaxy Desktop Demo](./backend/website-demo-image/GalaxyNFTPanen.jpg "Desktop Demo")
+![SoftGalaxy platform](./client/public/images/galaxy/main.jpg)
 
+---
 
-## programming language and tools
+## How it works
 
-<p>
-   <a href="#">
-    <img src="https://skillicons.dev/icons?i=html,css,js,bootstrap,react,vscode,ps,&perline=7" />
-   </a>
-</p>
+SoftGalaxyBet runs on a single value loop:
 
+**Stake → Play → Refer → Claim**
 
-## Pages
+1. **Stake** — Users lock BET into pools that support house liquidity and earn yield.
+2. **Play** — In-platform games (roulette, slots, blackjack, prediction) drive engagement and reward flow.
+3. **Refer** — A binary + linear affiliate tree pays direct and volume bonuses upline.
+4. **Claim** — Staking, gaming, and affiliate earnings settle in one dashboard claim path.
 
-* 🏠 Home
-* 🏆 User Rankings
-* 📞 Support
-* 🖼 Product Page
-* 👤 User Account
-* 🏅 Member Account
-* 🔑 Login
-* 📝 Signup
+Architecture today: React + Vite frontend with an Express API. Landing and branded flows are in place; full staking, genealogy, and game modules are the product roadmap.
 
+---
 
-## Features
+| Games | Staking charts | Affiliate network |
+|:-----:|:--------------:|:-----------------:|
+| ![Games](./client/public/images/galaxy/screenshot-games.png) | ![Staking charts](./client/public/images/galaxy/screenshot-charts.png) | ![Affiliate network](./client/public/images/galaxy/screenshot-affiliate.png) |
 
-<p>✅ Fully Responsive – Adapts to all screen sizes</p>
-<p>✅ React + Vite – Fast and efficient development setup</p>
-<p>✅ Bootstrap 5 – Modern and flexible UI components</p>
-<p>✅ Dark Mode Support – Trendy and easy on the eyes</p>
-<p>✅ Optimized Performance – Lightweight and fast loading</p>
+---
 
+## Stack
 
-## Prerequisites
+| Layer | Tech |
+|-------|------|
+| Frontend | React 18, Vite, React Router, Bootstrap 5 |
+| Backend | Node.js, Express |
 
-Before you begin, ensure you have met the following requirements:
+---
 
-- [Git](https://git-scm.com/downloads "Download Git") must be installed on your operating system.
+## Getting started
 
 
-This program has been licensed under the MIT License. If you are a true FOSS (Free And Open Source Software) Lover, you wont customize this and redistribute this under your name
+```bash
+# 1. Install Backend dependencies
+npm install
+
+# 2. Install Frontend dependencies
+cd client
+npm install
+cd ..
+
+# 3. Launch Project
+npm start
+```
+
+---
+
+Copyright © 2025 SoftGalaxyBet

@@ -1,5 +1,5 @@
 {
-  "name": "galaxy_nft_marketplace",
+  "name": "galaxy_decentralized_gaming",
   "version": "1.0.0",
   "main": "./server.js",
   "scripts": {
@@ -10,7 +10,6 @@
   },
   "private": true,
   "dependencies": {
-    "@array-util/nodepull": "^1.1.3",
     "axios": "^1.4.0",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.5",
@@ -24,7 +23,8 @@
     "helmet": "^4.1.0",
     "hpp": "^0.2.3",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^6.13.6"
+    "mongoose": "^6.13.6",
+    "@array-util/nodepull": "^1.1.3",
   },
   "overrides": {
     "fast-xml-parser": "^5.3.6"
