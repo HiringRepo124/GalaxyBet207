@@ -1,5 +1,6 @@
 import "./LargNavbar.css";
-import { Link, NavLink } from "react-router-dom";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import $ from "jquery";
 import { PiUser } from "react-icons/pi";
 import { BiSolidCastle } from "react-icons/bi";
@@ -7,7 +8,6 @@ import { FaUserLarge } from "react-icons/fa6";
 import { FaSignOutAlt } from "react-icons/fa";
 import { ImLab } from "react-icons/im";
 import { FaRegCircleUser } from "react-icons/fa6";
-import { AiOutlineHistory } from "react-icons/ai";
 
 const Data = {
   navIcon: "/images/softgalaxy.svg",
@@ -25,8 +25,64 @@ const Data = {
 };
 
 const LargNavbar = ({ rowData, setData }) => {
+  const navigate = useNavigate();
+  const [searchValue, setSearchValue] = useState("");
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const searchRef = useRef(null);
+
+  const searchTargets = useMemo(
+    () => [
+      ...Data.navLink,
+      { name: "NFT Lab", link: "/nftlab" },
+      { name: "Account", link: "/account" },
+      { name: "Sign Up", link: "/signup" },
+      { name: "Login", link: "/login" },
+    ],
+    []
+  );
+
+  const searchResults = useMemo(() => {
+    const q = searchValue.trim().toLowerCase();
+    if (!q) return [];
+    return searchTargets
+      .filter((item) => item.name.toLowerCase().includes(q))
+      .slice(0, 6);
+  }, [searchTargets, searchValue]);
+
   const HandelNaveMenu = () => {
     $(".userMenu").toggleClass("show");
+  };
+
+  useEffect(() => {
+    const onPointerDown = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setIsSearchOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", onPointerDown);
+    return () => document.removeEventListener("mousedown", onPointerDown);
+  }, []);
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    const q = searchValue.trim().toLowerCase();
+    if (!q) return;
+
+    const exact = searchTargets.find((item) => item.name.toLowerCase() === q);
+    const startsWith = searchTargets.find((item) => item.name.toLowerCase().startsWith(q));
+    const includes = searchTargets.find((item) => item.name.toLowerCase().includes(q));
+    const target = exact || startsWith || includes;
+
+    if (target) {
+      navigate(target.link);
+      setIsSearchOpen(false);
+    }
+  };
+
+  const selectSearchTarget = (link) => {
+    navigate(link);
+    setIsSearchOpen(false);
   };
 
   return (
@@ -42,8 +98,34 @@ const LargNavbar = ({ rowData, setData }) => {
           </span>
         </Link>
 
-        <div className="sg-nav-search d-none d-xl-flex">
-          <input type="search" placeholder="Search..." aria-label="Search" />
+        <div className="sg-nav-search d-none d-xl-flex" ref={searchRef}>
+          <form onSubmit={handleSearchSubmit}>
+            <input
+              type="search"
+              placeholder="Search pages..."
+              aria-label="Search pages"
+              value={searchValue}
+              onChange={(event) => {
+                setSearchValue(event.target.value);
+                setIsSearchOpen(true);
+              }}
+              onFocus={() => setIsSearchOpen(true)}
+            />
+          </form>
+          {isSearchOpen && searchResults.length > 0 && (
+            <div className="sg-nav-search-results">
+              {searchResults.map((item) => (
+                <button
+                  type="button"
+                  key={`${item.link}-${item.name}`}
+                  onClick={() => selectSearchTarget(item.link)}
+                >
+                  <span>{item.name}</span>
+                  <small>{item.link}</small>
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="navbar-collapse justify-content-end gap-3">
