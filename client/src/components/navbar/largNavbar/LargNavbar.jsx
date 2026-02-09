@@ -8,6 +8,7 @@ import { FaUserLarge } from "react-icons/fa6";
 import { FaSignOutAlt } from "react-icons/fa";
 import { ImLab } from "react-icons/im";
 import { FaRegCircleUser } from "react-icons/fa6";
+import { FiSearch } from "react-icons/fi";
 
 const Data = {
   navIcon: "/images/softgalaxy.svg",
@@ -100,6 +101,9 @@ const LargNavbar = ({ rowData, setData }) => {
 
         <div className="sg-nav-search d-none d-xl-flex" ref={searchRef}>
           <form onSubmit={handleSearchSubmit}>
+            <span className="sg-nav-search-icon" aria-hidden="true">
+              <FiSearch />
+            </span>
             <input
               type="search"
               placeholder="Search pages..."
