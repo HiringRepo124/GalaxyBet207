@@ -78,10 +78,55 @@ const Trading = () => {
   const [activePeriod, setActivePeriod] = useState("7D");
   const [animating, setAnimating] = useState(false);
   const [visibleMovers, setVisibleMovers] = useState(ALL_MOVERS.slice(0, 4));
+  const [activeModal, setActiveModal] = useState(null);
   const tickerRef = useRef(null);
 
   const data = PERIOD_DATA[activePeriod];
   const maxValue = Math.max(...data.bars.map((item) => item.value));
+
+  const openMetricModal = (metric) => {
+    setActiveModal({
+      type: "metric",
+      icon: metric.icon,
+      title: `${metric.label} Insights`,
+      value: metric.value,
+      trend: metric.change,
+      positive: metric.positive,
+      description:
+        metric.label === "Floor Price"
+          ? "Floor price reflects the minimum buy-in for listed assets and often signals short-term sentiment shifts."
+          : metric.label === "Active Listings"
+            ? "Active listings track supply pressure and market depth across categories in the selected period."
+            : metric.label === "Top Bid"
+              ? "Top bid indicates peak buyer aggression and liquidity concentration in premium assets."
+              : "Volatility tracks magnitude of price swings and helps gauge risk-adjusted entry timing.",
+      details: [
+        { label: "Selected Window", value: activePeriod },
+        { label: "Period Benchmark", value: data.average },
+        { label: "Confidence", value: metric.positive ? "Bullish Bias" : "Risk Alert" },
+        { label: "Signal Grade", value: metric.positive ? "A-" : "B" },
+      ],
+    });
+  };
+
+  const openBarModal = (bar) => {
+    const barShare = ((bar.value / maxValue) * 100).toFixed(1);
+    setActiveModal({
+      type: "bar",
+      icon: <FiBarChart />,
+      title: `${bar.label} Trading Breakdown`,
+      value: `${bar.volume.toLocaleString()} ETH`,
+      trend: bar.change,
+      positive: bar.change.startsWith("+"),
+      description: `Detailed view for ${bar.label} in ${activePeriod} mode, including comparative share and pace versus recent candles.`,
+      details: [
+        { label: "Relative Strength", value: `${barShare}%` },
+        { label: "Volume Rank", value: `${data.bars.findIndex((b) => b.label === bar.label) + 1} / ${data.bars.length}` },
+        { label: "Period Total", value: data.totalVolume },
+        { label: "Market Mode", value: bar.change.startsWith("+") ? "Expansion" : "Cooldown" },
+      ],
+    });
+  };
 
   const handlePeriodChange = (period) => {
     if (period === activePeriod) return;
@@ -102,6 +147,15 @@ const Trading = () => {
     }, 3000);
     return () => clearInterval(tickerRef.current);
   }, []);
+
+  useEffect(() => {
+    if (!activeModal) return undefined;
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") setActiveModal(null);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activeModal]);
 
   return (
     <>
@@ -149,6 +203,15 @@ const Trading = () => {
                     </span>
                     <div
                       className="chartBar"
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => openBarModal(item)}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter" || event.key === " ") {
+                          event.preventDefault();
+                          openBarModal(item);
+                        }
+                      }}
                       style={{
                         height: `${(item.value / maxValue) * 100}%`,
                         animationDelay: `${index * 60}ms`,
@@ -183,7 +246,12 @@ const Trading = () => {
 
                   <div className="metricCards mt-4">
                     {data.metrics.map((metric, index) => (
-                      <div key={`${activePeriod}-metric-${index}`} className="metricCard p-3">
+                      <button
+                        key={`${activePeriod}-metric-${index}`}
+                        type="button"
+                        className="metricCard p-3"
+                        onClick={() => openMetricModal(metric)}
+                      >
                         <div className="d-flex justify-content-between align-items-start gap-2">
                           <span className="metricIcon">{metric.icon}</span>
                           <span className={`metricTrend ${metric.positive ? "positive" : "negative"}`}>
@@ -192,7 +260,7 @@ const Trading = () => {
                         </div>
                         <span className="metricLabel F5 mt-3">{metric.label}</span>
                         <span className="metricValue F2">{metric.value}</span>
-                      </div>
+                      </button>
                     ))}
                   </div>
                 </div>
@@ -227,6 +295,45 @@ const Trading = () => {
           </div>
         </div>
       </section>
+
+      {activeModal && (
+        <div className="tradeModalOverlay" onClick={() => setActiveModal(null)}>
+          <div className="tradeModal" onClick={(event) => event.stopPropagation()}>
+            <button
+              type="button"
+              className="tradeModalClose"
+              aria-label="Close details"
+              onClick={() => setActiveModal(null)}
+            >
+              ×
+            </button>
+
+            <div className="tradeModalHead">
+              <span className="tradeModalIcon">{activeModal.icon}</span>
+              <div>
+                <h4>{activeModal.title}</h4>
+                <p>{activeModal.description}</p>
+              </div>
+            </div>
+
+            <div className="tradeModalGrid">
+              {activeModal.details.map((detail) => (
+                <div key={detail.label}>
+                  <span>{detail.label}</span>
+                  <strong>{detail.value}</strong>
+                </div>
+              ))}
+            </div>
+
+            <div className="tradeModalFoot">
+              <span>Current Signal</span>
+              <b className={activeModal.positive ? "positive" : "negative"}>
+                {activeModal.trend} · {activeModal.value}
+              </b>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
