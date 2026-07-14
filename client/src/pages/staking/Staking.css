@@ -175,11 +175,24 @@
   padding: 0.62rem;
   display: grid;
   gap: 0.26rem;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 #stakingDashboard .statCard svg {
   color: var(--sg-gold);
   font-size: 1.12rem;
+}
+
+#stakingDashboard .statCard:hover {
+  transform: translateY(-2px);
+  border-color: rgba(244, 196, 48, 0.42);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2);
+}
+
+#stakingDashboard .statCard:active {
+  transform: translateY(0);
 }
 
 #stakingDashboard .statCard span {
@@ -671,6 +684,158 @@
   }
 
   #stakingDashboard .statCards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tile Details Modal */
+#stakingDashboard ~ .tileModalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 10, 18, 0.72);
+  backdrop-filter: blur(4px);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: modalFadeIn 0.2s ease;
+}
+
+#stakingDashboard ~ .tileModalOverlay .tileModal {
+  width: min(620px, 96vw);
+  border-radius: var(--_15px);
+  border: 1px solid rgba(244, 196, 48, 0.24);
+  background: linear-gradient(170deg, var(--sg-surface) 0%, var(--sg-surface-2) 100%);
+  box-shadow: 0 24px 45px rgba(0, 0, 0, 0.35);
+  padding: 1.1rem;
+  position: relative;
+  animation: modalUpIn 0.24s ease;
+}
+
+#stakingDashboard ~ .tileModalOverlay .tileModalClose {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.6rem;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--dark-white);
+  font-size: 1.2rem;
+}
+
+#stakingDashboard ~ .tileModalOverlay .tileModalClose:hover {
+  color: var(--white);
+}
+
+#stakingDashboard ~ .tileModalOverlay .tileModalHead {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 0.8rem;
+  align-items: start;
+}
+
+#stakingDashboard ~ .tileModalOverlay .tileModalIcon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--_10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(244, 196, 48, 0.35);
+  background: rgba(244, 196, 48, 0.08);
+  color: var(--sg-gold);
+  font-size: 1.4rem;
+}
+
+#stakingDashboard ~ .tileModalOverlay .tileModalHead h4 {
+  margin: 0;
+  color: var(--white);
+  font-family: Rubik-B;
+  font-size: 1.1rem;
+}
+
+#stakingDashboard ~ .tileModalOverlay .tileModalHead p {
+  margin: 0.4rem 0 0;
+  color: var(--dark-white);
+  opacity: 0.88;
+  font-family: WorkSans-M;
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+#stakingDashboard ~ .tileModalOverlay .tileModalGrid {
+  margin-top: 0.9rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+#stakingDashboard ~ .tileModalOverlay .tileModalGrid div {
+  border-radius: var(--_10px);
+  border: 1px solid var(--sg-border);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 0.55rem 0.65rem;
+}
+
+#stakingDashboard ~ .tileModalOverlay .tileModalGrid span {
+  display: block;
+  color: var(--sg-text-muted);
+  text-transform: uppercase;
+  font-family: WorkSans-S;
+  font-size: 0.66rem;
+}
+
+#stakingDashboard ~ .tileModalOverlay .tileModalGrid strong {
+  display: block;
+  margin-top: 0.26rem;
+  color: var(--white);
+  font-family: SpaceMono-R;
+  font-size: 0.9rem;
+}
+
+#stakingDashboard ~ .tileModalOverlay .tileModalFoot {
+  margin-top: 0.75rem;
+  border-radius: var(--_10px);
+  border: 1px solid rgba(124, 58, 237, 0.4);
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.22), rgba(168, 85, 247, 0.14));
+  padding: 0.5rem 0.7rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#stakingDashboard ~ .tileModalOverlay .tileModalFoot span {
+  color: var(--dark-white);
+  font-family: WorkSans-S;
+  font-size: 0.76rem;
+}
+
+#stakingDashboard ~ .tileModalOverlay .tileModalFoot b {
+  color: var(--sg-gold);
+  font-family: SpaceMono-R;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalUpIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 575px) {
+  #stakingDashboard ~ .tileModalOverlay .tileModalGrid {
     grid-template-columns: 1fr;
   }
 }

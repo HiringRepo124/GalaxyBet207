@@ -6,9 +6,36 @@ import { GiPokerHand, GiTwoCoins } from "react-icons/gi";
 import { IoFootballOutline } from "react-icons/io5";
 
 const yearlyStats = [
-  { icon: <FiBarChart2 />, title: "Crypto Predict", value: "0.346543" },
-  { icon: <GiPokerHand />, title: "Poker", value: "0.346543" },
-  { icon: <IoFootballOutline />, title: "Sport Betting", value: "0.346543" },
+  {
+    icon: <FiBarChart2 />,
+    title: "Crypto Predict",
+    value: "0.346543",
+    apr: "142.40%",
+    volume: "18.4M BET",
+    users: "12,540",
+    winRate: "58.2%",
+    desc: "Prediction pools with dynamic APR balancing based on liquidity and accuracy.",
+  },
+  {
+    icon: <GiPokerHand />,
+    title: "Poker",
+    value: "0.346543",
+    apr: "126.10%",
+    volume: "14.7M BET",
+    users: "9,870",
+    winRate: "54.8%",
+    desc: "Competitive tables with smooth reward distribution and peak evening activity.",
+  },
+  {
+    icon: <IoFootballOutline />,
+    title: "Sport Betting",
+    value: "0.346543",
+    apr: "151.90%",
+    volume: "22.2M BET",
+    users: "17,205",
+    winRate: "61.5%",
+    desc: "High-volume sports markets with stronger staking yield during live events.",
+  },
 ];
 
 const chatItems = [
@@ -84,6 +111,7 @@ const Staking = () => {
   const [activeTab, setActiveTab] = useState("my");
   const [liveIndex, setLiveIndex] = useState(0);
   const [claimCountdown, setClaimCountdown] = useState(14 * 3600 + 22 * 60);
+  const [activeTile, setActiveTile] = useState(null);
 
   useEffect(() => {
     const tickerTimer = setInterval(() => {
@@ -100,6 +128,17 @@ const Staking = () => {
 
     return () => clearInterval(countTimer);
   }, []);
+
+  useEffect(() => {
+    if (!activeTile) return undefined;
+
+    const onEsc = (event) => {
+      if (event.key === "Escape") setActiveTile(null);
+    };
+
+    document.addEventListener("keydown", onEsc);
+    return () => document.removeEventListener("keydown", onEsc);
+  }, [activeTile]);
 
   return (
     <>
@@ -164,11 +203,16 @@ const Staking = () => {
                       <span className="panelTitle">Sharebet games yearly stats</span>
                       <div className="statCards">
                         {yearlyStats.map((item) => (
-                          <div key={item.title} className="statCard">
+                          <button
+                            key={item.title}
+                            type="button"
+                            className="statCard"
+                            onClick={() => setActiveTile(item)}
+                          >
                             {item.icon}
                             <span>{item.title}</span>
                             <strong>{item.value}</strong>
-                          </div>
+                          </button>
                         ))}
                       </div>
 
@@ -330,6 +374,53 @@ const Staking = () => {
           </div>
         </div>
       </section>
+
+      {activeTile && (
+        <div className="tileModalOverlay" onClick={() => setActiveTile(null)}>
+          <div className="tileModal" onClick={(e) => e.stopPropagation()}>
+            <button
+              type="button"
+              className="tileModalClose"
+              onClick={() => setActiveTile(null)}
+              aria-label="Close tile details"
+            >
+              ×
+            </button>
+
+            <div className="tileModalHead">
+              <div className="tileModalIcon">{activeTile.icon}</div>
+              <div>
+                <h4>{activeTile.title}</h4>
+                <p>{activeTile.desc}</p>
+              </div>
+            </div>
+
+            <div className="tileModalGrid">
+              <div>
+                <span>APR</span>
+                <strong>{activeTile.apr}</strong>
+              </div>
+              <div>
+                <span>Total Volume</span>
+                <strong>{activeTile.volume}</strong>
+              </div>
+              <div>
+                <span>Active Users</span>
+                <strong>{activeTile.users}</strong>
+              </div>
+              <div>
+                <span>Win Rate</span>
+                <strong>{activeTile.winRate}</strong>
+              </div>
+            </div>
+
+            <div className="tileModalFoot">
+              <span>Live factor</span>
+              <b>{activeTile.value}</b>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
