@@ -18,6 +18,16 @@
   border-radius: var(--_15px);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
   padding: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+#stakingDashboard .panelCard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 18% 0%, rgba(244, 196, 48, 0.08), transparent 36%);
+  pointer-events: none;
 }
 
 #stakingDashboard .rightPanel {
@@ -88,6 +98,61 @@
   display: grid;
   grid-template-columns: 1.1fr 1fr;
   gap: 0.95rem;
+}
+
+#stakingDashboard .liveStrip {
+  border-radius: var(--_10px);
+  border: 1px solid rgba(244, 196, 48, 0.24);
+  background: linear-gradient(120deg, rgba(244, 196, 48, 0.08), rgba(124, 58, 237, 0.08));
+  padding: 0.55rem 0.65rem;
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+#stakingDashboard .liveDot {
+  border-radius: 999px;
+  border: 1px solid rgba(34, 197, 94, 0.5);
+  background: rgba(34, 197, 94, 0.14);
+  color: var(--sg-green);
+  font-family: SpaceMono-R;
+  font-size: 0.66rem;
+  padding: 0.2rem 0.52rem;
+  animation: pulseLiveTag 1.2s ease-in-out infinite;
+}
+
+#stakingDashboard .liveItems {
+  flex: 1;
+  display: grid;
+}
+
+#stakingDashboard .liveItem {
+  display: none;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--dark-white);
+  font-family: WorkSans-M;
+  font-size: 0.72rem;
+}
+
+#stakingDashboard .liveItem.active {
+  display: inline-flex;
+  animation: fadeLiftIn 0.32s ease;
+}
+
+#stakingDashboard .liveItem strong {
+  color: var(--white);
+}
+
+#stakingDashboard .liveItem b {
+  color: var(--sg-gold);
+  font-family: SpaceMono-R;
+}
+
+#stakingDashboard .liveItem small {
+  color: var(--sg-text-muted);
+  margin-left: auto;
+  font-family: SpaceMono-R;
 }
 
 #stakingDashboard .panelTitle {
@@ -324,6 +389,31 @@
   font-size: 0.8rem;
 }
 
+#stakingDashboard .stakePrimary:hover {
+  filter: brightness(0.96);
+}
+
+#stakingDashboard .quickStake {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.38rem;
+}
+
+#stakingDashboard .quickStake button {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--dark-white);
+  font-family: SpaceMono-R;
+  font-size: 0.68rem;
+  border-radius: 999px;
+  padding: 0.24rem 0.54rem;
+}
+
+#stakingDashboard .quickStake button:hover {
+  border-color: rgba(244, 196, 48, 0.45);
+  color: var(--sg-gold);
+}
+
 #stakingDashboard .claimBox {
   border-radius: var(--_10px);
   padding: 0.8rem;
@@ -354,6 +444,10 @@
   background: linear-gradient(135deg, var(--sg-gold), var(--sg-gold-hover));
   color: var(--sg-bg);
   font-family: WorkSans-S;
+}
+
+#stakingDashboard .claimBox button:hover {
+  filter: brightness(0.95);
 }
 
 #stakingDashboard .historyTabs {
@@ -404,6 +498,11 @@
   color: var(--dark-white);
   font-family: SpaceMono-R;
   font-size: 0.72rem;
+  transition: background 0.18s ease;
+}
+
+#stakingDashboard .historyRow:hover {
+  background: rgba(255, 255, 255, 0.03);
 }
 
 #stakingDashboard .historyRow .profit {
@@ -421,6 +520,17 @@
 #stakingDashboard .chatHead span {
   color: var(--white);
   font-family: Rubik-B;
+}
+
+#stakingDashboard .chatLiveTag {
+  font-style: normal;
+  margin-left: 0.38rem;
+  color: var(--sg-green);
+  font-family: SpaceMono-R;
+  font-size: 0.65rem;
+  border: 1px solid rgba(34, 197, 94, 0.42);
+  border-radius: 999px;
+  padding: 0.1rem 0.42rem;
 }
 
 #stakingDashboard .chatHead strong {
@@ -442,6 +552,12 @@
   border: 1px solid var(--sg-border);
   background: rgba(255, 255, 255, 0.02);
   padding: 0.58rem;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+#stakingDashboard .chatItem:hover {
+  border-color: rgba(244, 196, 48, 0.35);
+  transform: translateY(-1px);
 }
 
 #stakingDashboard .chatItemTop {
@@ -497,6 +613,27 @@
   padding: 0.32rem 0.55rem;
   background: linear-gradient(135deg, var(--sg-gold), var(--sg-gold-hover));
   color: var(--sg-bg);
+}
+
+@keyframes pulseLiveTag {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.18);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(34, 197, 94, 0);
+  }
+}
+
+@keyframes fadeLiftIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 1399px) {

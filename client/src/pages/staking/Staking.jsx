@@ -1,6 +1,6 @@
 import "./Staking.css";
 import { Helmet } from "react-helmet-async";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiBarChart2, FiFlag, FiLock } from "react-icons/fi";
 import { GiPokerHand, GiTwoCoins } from "react-icons/gi";
 import { IoFootballOutline } from "react-icons/io5";
@@ -58,9 +58,48 @@ const stakingRows = [
   },
 ];
 
+const liveActivities = [
+  { user: "MetaWolf", action: "staked", amount: "12,400 BET", ago: "8s ago" },
+  { user: "NovaX", action: "claimed", amount: "1,240 BET", ago: "21s ago" },
+  { user: "OrbitQueen", action: "staked", amount: "32,000 BET", ago: "46s ago" },
+  { user: "ChainBoo", action: "claimed", amount: "785 BET", ago: "1m ago" },
+];
+
+const formatCountdown = (seconds) => {
+  const safe = Math.max(0, seconds);
+  const h = Math.floor(safe / 3600)
+    .toString()
+    .padStart(2, "0");
+  const m = Math.floor((safe % 3600) / 60)
+    .toString()
+    .padStart(2, "0");
+  const s = Math.floor(safe % 60)
+    .toString()
+    .padStart(2, "0");
+  return `${h}:${m}:${s}`;
+};
+
 const Staking = () => {
   const [stakeAmount, setStakeAmount] = useState("");
   const [activeTab, setActiveTab] = useState("my");
+  const [liveIndex, setLiveIndex] = useState(0);
+  const [claimCountdown, setClaimCountdown] = useState(14 * 3600 + 22 * 60);
+
+  useEffect(() => {
+    const tickerTimer = setInterval(() => {
+      setLiveIndex((prev) => (prev + 1) % liveActivities.length);
+    }, 2800);
+
+    return () => clearInterval(tickerTimer);
+  }, []);
+
+  useEffect(() => {
+    const countTimer = setInterval(() => {
+      setClaimCountdown((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+
+    return () => clearInterval(countTimer);
+  }, []);
 
   return (
     <>
@@ -100,6 +139,23 @@ const Staking = () => {
                         <span>Earnings</span>
                         <strong>23,434 BET</strong>
                       </div>
+                    </div>
+                  </div>
+
+                  <div className="liveStrip mt-3">
+                    <span className="liveDot">LIVE</span>
+                    <div className="liveItems">
+                      {liveActivities.map((item, idx) => (
+                        <div
+                          key={`${item.user}-${idx}`}
+                          className={`liveItem ${idx === liveIndex ? "active" : ""}`}
+                        >
+                          <strong>{item.user}</strong>
+                          <span>{item.action}</span>
+                          <b>{item.amount}</b>
+                          <small>{item.ago}</small>
+                        </div>
+                      ))}
                     </div>
                   </div>
 
@@ -177,11 +233,18 @@ const Staking = () => {
                         Stake
                       </button>
                     </div>
+                    <div className="quickStake mt-2">
+                      <button type="button" onClick={() => setStakeAmount("100")}>100</button>
+                      <button type="button" onClick={() => setStakeAmount("500")}>500</button>
+                      <button type="button" onClick={() => setStakeAmount("1000")}>1k</button>
+                      <button type="button" onClick={() => setStakeAmount("5000")}>5k</button>
+                      <button type="button" onClick={() => setStakeAmount("10000")}>10k</button>
+                    </div>
                   </div>
 
                   <div className="claimBox">
                     <strong>Claim 24,000 BET</strong>
-                    <small>12k BET to be credited in 14h 22min</small>
+                    <small>12k BET to be credited in {formatCountdown(claimCountdown)}</small>
                     <button type="button">Claim</button>
                   </div>
                 </div>
@@ -238,7 +301,9 @@ const Staking = () => {
             <div className="col-12 col-xl-3">
               <aside className="rightPanel panelCard h-100">
                 <div className="chatHead">
-                  <span>CHAT</span>
+                  <span>
+                    CHAT <i className="chatLiveTag">Live</i>
+                  </span>
                   <strong>31 235</strong>
                 </div>
 
