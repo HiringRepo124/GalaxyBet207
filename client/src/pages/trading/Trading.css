@@ -299,6 +299,87 @@
   color: var(--dark-white);
 }
 
+/* ── Period switch transitions ───────────────────── */
+#trading .chartFadeOut {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+#trading .chartFadeIn {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+#trading .statFade {
+  opacity: 0.3;
+  transition: opacity 0.2s ease;
+}
+
+/* ── Bar grow-in animation ───────────────────────── */
+@keyframes barGrow {
+  from {
+    height: 0 !important;
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+#trading .chartFadeIn .chartBar {
+  animation: barGrow 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── Dynamic grid widths ─────────────────────────── */
+#trading .chartGrid--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+#trading .chartGrid--4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+#trading .chartGrid--7 {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+/* ── Live badge ──────────────────────────────────── */
+#trading .liveBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+#trading .liveDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #a3ff91;
+  display: inline-block;
+  animation: livePulse 1.4s ease-in-out infinite;
+}
+
+@keyframes livePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(1.35); }
+}
+
+/* ── Top mover slide-in ──────────────────────────── */
+#trading .moversList {
+  overflow: hidden;
+}
+
+@keyframes moverIn {
+  from { opacity: 0; transform: translateX(12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+#trading .moverSlideIn {
+  animation: moverIn 0.35s ease both;
+}
+
 #trading .summaryAmount {
   color: var(--white);
 }

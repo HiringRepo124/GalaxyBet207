@@ -1,33 +1,107 @@
 import "./Trading.css";
+import { useState, useEffect, useRef } from "react";
 import { Helmet } from "react-helmet-async";
 import { FiArrowUpRight, FiArrowDownRight, FiTrendingUp, FiBarChart } from "react-icons/fi";
 
-const volumeData = [
-  { label: "Mon", value: 40, volume: 1240, change: "+8.2%" },
-  { label: "Tue", value: 60, volume: 1680, change: "+12.5%" },
-  { label: "Wed", value: 75, volume: 1980, change: "+6.8%" },
-  { label: "Thu", value: 55, volume: 1520, change: "-4.2%" },
-  { label: "Fri", value: 90, volume: 2320, change: "+9.9%" },
-  { label: "Sat", value: 70, volume: 1890, change: "+2.3%" },
-  { label: "Sun", value: 50, volume: 1420, change: "-1.8%" },
-];
+const PERIOD_DATA = {
+  "7D": {
+    label: "Weekly Volume",
+    subtitle: "Volume is shown in ETH across the last 7 days.",
+    totalVolume: "12,070 ETH",
+    average: "1,724 ETH",
+    bars: [
+      { label: "Mon", value: 40, volume: 1240, change: "+8.2%" },
+      { label: "Tue", value: 60, volume: 1680, change: "+12.5%" },
+      { label: "Wed", value: 75, volume: 1980, change: "+6.8%" },
+      { label: "Thu", value: 55, volume: 1520, change: "-4.2%" },
+      { label: "Fri", value: 90, volume: 2320, change: "+9.9%" },
+      { label: "Sat", value: 70, volume: 1890, change: "+2.3%" },
+      { label: "Sun", value: 50, volume: 1420, change: "-1.8%" },
+    ],
+    metrics: [
+      { label: "Floor Price", value: "0.83 ETH", change: "+4.7%", positive: true, icon: <FiTrendingUp /> },
+      { label: "Active Listings", value: "1,240", change: "+12.0%", positive: true, icon: <FiBarChart /> },
+      { label: "Top Bid", value: "5.4 ETH", change: "+9.2%", positive: true, icon: <FiArrowUpRight /> },
+      { label: "Market Volatility", value: "18.4%", change: "-2.6%", positive: false, icon: <FiArrowDownRight /> },
+    ],
+    snapshot: "Trading activity is strong across collectible and space asset categories. The last 7 days show growing purchase momentum and a rise in high-value bids.",
+  },
+  "30D": {
+    label: "Monthly Volume",
+    subtitle: "Volume is shown in ETH across the last 30 days.",
+    totalVolume: "58,340 ETH",
+    average: "1,944 ETH",
+    bars: [
+      { label: "W1", value: 55, volume: 13200, change: "+5.1%" },
+      { label: "W2", value: 80, volume: 18400, change: "+15.2%" },
+      { label: "W3", value: 65, volume: 14900, change: "-8.6%" },
+      { label: "W4", value: 72, volume: 11840, change: "+3.4%" },
+    ],
+    metrics: [
+      { label: "Floor Price", value: "1.02 ETH", change: "+11.3%", positive: true, icon: <FiTrendingUp /> },
+      { label: "Active Listings", value: "3,870", change: "+22.5%", positive: true, icon: <FiBarChart /> },
+      { label: "Top Bid", value: "9.8 ETH", change: "+18.1%", positive: true, icon: <FiArrowUpRight /> },
+      { label: "Market Volatility", value: "22.1%", change: "+3.7%", positive: false, icon: <FiArrowDownRight /> },
+    ],
+    snapshot: "Monthly data reveals strong accumulation phases in weeks 2 and 4, with top-tier bids climbing steadily. Space collectibles drove the bulk of volume.",
+  },
+  "90D": {
+    label: "Quarterly Volume",
+    subtitle: "Volume is shown in ETH across the last 90 days.",
+    totalVolume: "201,850 ETH",
+    average: "2,243 ETH",
+    bars: [
+      { label: "M1", value: 60, volume: 62400, change: "+7.8%" },
+      { label: "M2", value: 85, volume: 88200, change: "+20.4%" },
+      { label: "M3", value: 72, volume: 51250, change: "-9.1%" },
+    ],
+    metrics: [
+      { label: "Floor Price", value: "1.44 ETH", change: "+28.6%", positive: true, icon: <FiTrendingUp /> },
+      { label: "Active Listings", value: "9,120", change: "+44.0%", positive: true, icon: <FiBarChart /> },
+      { label: "Top Bid", value: "24.5 ETH", change: "+62.3%", positive: true, icon: <FiArrowUpRight /> },
+      { label: "Market Volatility", value: "31.7%", change: "+13.3%", positive: false, icon: <FiArrowDownRight /> },
+    ],
+    snapshot: "The quarter saw a major bull run in month 2 fueled by new collection launches. Month 3 corrected slightly but floor prices held strong across all categories.",
+  },
+};
 
-const marketMetrics = [
-  { label: "Floor Price", value: "0.83 ETH", change: "+4.7%", positive: true, icon: <FiTrendingUp /> },
-  { label: "Active Listings", value: "1,240", change: "+12.0%", positive: true, icon: <FiBarChart /> },
-  { label: "Top Bid", value: "5.4 ETH", change: "+9.2%", positive: true, icon: <FiArrowUpRight /> },
-  { label: "Market Volatility", value: "18.4%", change: "-2.6%", positive: false, icon: <FiArrowDownRight /> },
-];
-
-const topMovers = [
+const ALL_MOVERS = [
   { name: "Lunar Lotus", owner: "@celeste", price: "2.1 ETH", change: "+18.2%", positive: true },
   { name: "Galaxy Hive", owner: "@nova", price: "1.6 ETH", change: "+12.8%", positive: true },
   { name: "Pixel Phantom", owner: "@rix", price: "3.2 ETH", change: "-4.4%", positive: false },
   { name: "Orbit Orchid", owner: "@ariel", price: "0.9 ETH", change: "+7.1%", positive: true },
+  { name: "Nebula Panda", owner: "@starkid", price: "4.8 ETH", change: "+31.0%", positive: true },
+  { name: "Void Wraith", owner: "@oblix", price: "1.1 ETH", change: "-9.7%", positive: false },
 ];
 
 const Trading = () => {
-  const maxValue = Math.max(...volumeData.map((item) => item.value));
+  const [activePeriod, setActivePeriod] = useState("7D");
+  const [animating, setAnimating] = useState(false);
+  const [visibleMovers, setVisibleMovers] = useState(ALL_MOVERS.slice(0, 4));
+  const tickerRef = useRef(null);
+
+  const data = PERIOD_DATA[activePeriod];
+  const maxValue = Math.max(...data.bars.map((item) => item.value));
+
+  const handlePeriodChange = (period) => {
+    if (period === activePeriod) return;
+    setAnimating(true);
+    setTimeout(() => {
+      setActivePeriod(period);
+      setAnimating(false);
+    }, 220);
+  };
+
+  // Rotate top movers every 3 seconds to simulate live feed
+  useEffect(() => {
+    tickerRef.current = setInterval(() => {
+      setVisibleMovers((prev) => {
+        const next = [...prev.slice(1), ALL_MOVERS[(ALL_MOVERS.indexOf(prev[prev.length - 1]) + 1) % ALL_MOVERS.length]];
+        return next;
+      });
+    }, 3000);
+    return () => clearInterval(tickerRef.current);
+  }, []);
 
   return (
     <>
@@ -52,34 +126,35 @@ const Trading = () => {
             <div className="col-12 chartCard p-4">
               <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3 mb-4">
                 <div>
-                  <span className="F2 chartTitle">Weekly Volume</span>
-                  <p className="F4 chartSubtitle mt-2">
-                    Volume is shown in ETH across the last 7 days.
-                  </p>
+                  <span className="F2 chartTitle">{data.label}</span>
+                  <p className="F4 chartSubtitle mt-2">{data.subtitle}</p>
                 </div>
                 <div className="d-flex gap-3 statsRow">
                   <div className="statBox">
                     <span className="F5 statLabel">Total Volume</span>
-                    <span className="F1 statValue">12,070 ETH</span>
+                    <span className={`F1 statValue${animating ? " statFade" : ""}`}>{data.totalVolume}</span>
                   </div>
                   <div className="statBox">
                     <span className="F5 statLabel">Average</span>
-                    <span className="F1 statValue">1,724 ETH</span>
+                    <span className={`F1 statValue${animating ? " statFade" : ""}`}>{data.average}</span>
                   </div>
                 </div>
               </div>
 
-              <div className="chartGrid">
-                {volumeData.map((item, index) => (
-                  <div key={index} className="chartColumn">
+              <div className={`chartGrid chartGrid--${data.bars.length}${animating ? " chartFadeOut" : " chartFadeIn"}`}>
+                {data.bars.map((item, index) => (
+                  <div key={`${activePeriod}-${index}`} className="chartColumn">
                     <span className={`barRate ${item.change.startsWith("+") ? "positive" : "negative"}`}>
                       {item.change}
                     </span>
                     <div
                       className="chartBar"
-                      style={{ height: `${(item.value / maxValue) * 100}%` }}
+                      style={{
+                        height: `${(item.value / maxValue) * 100}%`,
+                        animationDelay: `${index * 60}ms`,
+                      }}
                     >
-                      <span className="barValue">{item.volume}</span>
+                      <span className="barValue">{item.volume.toLocaleString()}</span>
                     </div>
                     <span className="barLabel F5">{item.label}</span>
                   </div>
@@ -91,13 +166,15 @@ const Trading = () => {
                   <div className="d-flex justify-content-between align-items-start gap-3 flex-wrap">
                     <div>
                       <span className="F5 subtitle">Market Snapshot</span>
-                      <p className="F4 mt-2">
-                        Trading activity is strong across collectible and space asset categories. The last 7 days show growing purchase momentum and a rise in high-value bids.
-                      </p>
+                      <p className={`F4 mt-2${animating ? " statFade" : ""}`}>{data.snapshot}</p>
                     </div>
                     <div className="chartControls">
-                      {['7D', '30D', '90D'].map((period) => (
-                        <button key={period} className={`periodButton ${period === '7D' ? 'active' : ''}`}>
+                      {["7D", "30D", "90D"].map((period) => (
+                        <button
+                          key={period}
+                          className={`periodButton ${period === activePeriod ? "active" : ""}`}
+                          onClick={() => handlePeriodChange(period)}
+                        >
                           {period}
                         </button>
                       ))}
@@ -105,11 +182,11 @@ const Trading = () => {
                   </div>
 
                   <div className="metricCards mt-4">
-                    {marketMetrics.map((metric, index) => (
-                      <div key={index} className="metricCard p-3">
+                    {data.metrics.map((metric, index) => (
+                      <div key={`${activePeriod}-metric-${index}`} className="metricCard p-3">
                         <div className="d-flex justify-content-between align-items-start gap-2">
                           <span className="metricIcon">{metric.icon}</span>
-                          <span className={`metricTrend ${metric.positive ? 'positive' : 'negative'}`}>
+                          <span className={`metricTrend ${metric.positive ? "positive" : "negative"}`}>
                             {metric.change}
                           </span>
                         </div>
@@ -123,22 +200,27 @@ const Trading = () => {
                 <div className="topMoversCard p-4">
                   <div className="d-flex justify-content-between align-items-center mb-3">
                     <span className="F2 sectionTitle">Top Movers</span>
-                    <span className="F6 badge">Live</span>
+                    <span className="F6 badge liveBadge">
+                      <span className="liveDot" />
+                      Live
+                    </span>
                   </div>
-                  {topMovers.map((item, index) => (
-                    <div key={index} className="topMoverItem">
-                      <div>
-                        <span className="F5 moverName">{item.name}</span>
-                        <span className="F6 moverOwner">{item.owner}</span>
+                  <div className="moversList">
+                    {visibleMovers.map((item, index) => (
+                      <div key={`${item.name}-${index}`} className="topMoverItem moverSlideIn">
+                        <div>
+                          <span className="F5 moverName">{item.name}</span>
+                          <span className="F6 moverOwner">{item.owner}</span>
+                        </div>
+                        <div className="text-end">
+                          <span className="F5 moverPrice">{item.price}</span>
+                          <span className={`F6 moverChange ${item.positive ? "positive" : "negative"}`}>
+                            {item.change}
+                          </span>
+                        </div>
                       </div>
-                      <div className="text-end">
-                        <span className="F5 moverPrice">{item.price}</span>
-                        <span className={`F6 moverChange ${item.positive ? 'positive' : 'negative'}`}>
-                          {item.change}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
