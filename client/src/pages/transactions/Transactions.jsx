@@ -1,5 +1,7 @@
 import "./Transactions.css";
+import { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { FiSearch, FiX } from "react-icons/fi";
 
 const transactions = [
   {
@@ -125,6 +127,17 @@ const transactions = [
 ];
 
 const Transactions = () => {
+  const [query, setQuery] = useState("");
+
+  const filtered = query.trim()
+    ? transactions.filter((t) =>
+        [t.id, t.item, t.marketplace, t.type, t.status]
+          .join(" ")
+          .toLowerCase()
+          .includes(query.trim().toLowerCase())
+      )
+    : transactions;
+
   return (
     <>
       <Helmet>
@@ -156,13 +169,29 @@ const Transactions = () => {
                 <div className="historyStats d-flex gap-3">
                   <div className="statBox">
                     <span className="F5 statLabel">Transactions</span>
-                    <span className="F1 statValue">{transactions.length}</span>
+                    <span className="F1 statValue">{filtered.length}</span>
                   </div>
                   <div className="statBox">
                     <span className="F5 statLabel">Open Items</span>
-                    <span className="F1 statValue">{transactions.filter((t) => t.status !== "Completed").length}</span>
+                    <span className="F1 statValue">{filtered.filter((t) => t.status !== "Completed").length}</span>
                   </div>
                 </div>
+              </div>
+
+              <div className="txnSearchWrapper mb-4">
+                <FiSearch className="txnSearchIcon" />
+                <input
+                  type="text"
+                  className="txnSearchInput"
+                  placeholder="Search by ID, item, marketplace, type or status…"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                />
+                {query && (
+                  <button className="txnClearBtn" onClick={() => setQuery("")} aria-label="Clear search">
+                    <FiX />
+                  </button>
+                )}
               </div>
 
               <div className="tableWrapper">
@@ -176,7 +205,13 @@ const Transactions = () => {
                   <span>Fee</span>
                   <span>Status</span>
                 </div>
-                {transactions.map((item) => (
+                {filtered.length === 0 && (
+                  <div className="txnNoResults">
+                    <FiSearch size={28} />
+                    <span>No transactions match &ldquo;{query}&rdquo;</span>
+                  </div>
+                )}
+                {filtered.map((item) => (
                   <div key={item.id} className="historyRow">
                     <span className="historyCell">
                       <strong>{item.id}</strong>
