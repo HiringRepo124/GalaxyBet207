@@ -1,5 +1,9 @@
 .soft-home {
   padding-bottom: 4rem;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(244, 196, 48, 0.08), transparent 28%),
+    radial-gradient(circle at 86% 14%, rgba(124, 58, 237, 0.12), transparent 30%),
+    radial-gradient(circle at 72% 82%, rgba(34, 197, 94, 0.06), transparent 24%);
 }
 
 .soft-section {
@@ -22,7 +26,7 @@
 
 /* Hero */
 .sg-hero {
-  padding: 2rem 0 4rem;
+  padding: 2.5rem 0 4.5rem;
 }
 
 .sg-hero-grid {
@@ -83,12 +87,13 @@
   justify-content: center;
   align-items: center;
   min-height: 420px;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.18));
 }
 
 .sg-hero-orbit {
   position: relative;
-  width: 380px;
-  height: 380px;
+  width: 320px;
+  height: 320px;
 }
 
 .sg-hero-core {
@@ -98,6 +103,7 @@
   height: 180px;
   transform: translate(-50%, -50%);
   border-radius: 50%;
+  text-decoration: none;
   background: radial-gradient(circle at 30% 30%, #ffe082, var(--sg-gold) 40%, #b8860b);
   box-shadow:
     0 0 60px rgba(244, 196, 48, 0.5),
@@ -106,6 +112,10 @@
   align-items: center;
   justify-content: center;
   z-index: 1;
+}
+
+.sg-hero-core:hover {
+  transform: translate(-50%, -50%) scale(1.03);
 }
 
 .sg-hero-core img {
@@ -117,7 +127,7 @@
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  border: 2px dashed rgba(124, 58, 237, 0.4);
+  border: 2px dashed rgba(124, 58, 237, 0.3);
   animation: sgSpin 30s linear infinite;
   z-index: 0;
   pointer-events: none;
@@ -125,16 +135,17 @@
 
 .sg-hero-ring-2 {
   inset: 30px;
-  border-color: rgba(244, 196, 48, 0.25);
+  border-color: rgba(244, 196, 48, 0.2);
   animation-direction: reverse;
   animation-duration: 20s;
 }
 
 .sg-hero-node {
+  text-decoration: none;
   position: absolute;
-  width: 68px;
-  height: 68px;
-  border-radius: 18px;
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
   background: linear-gradient(160deg, #2d3148 0%, #1a1d2e 100%);
   border: 2px solid rgba(244, 196, 48, 0.55);
   display: flex;
@@ -148,6 +159,12 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
   z-index: 2;
   transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+
+.sg-hero-node:focus-visible,
+.sg-hero-orbit-item:focus-visible {
+  outline: 2px solid var(--sg-gold);
+  outline-offset: 4px;
 }
 
 .sg-hero-node svg {
@@ -167,7 +184,7 @@
 }
 
 .sg-hero-node--top {
-  top: -4px;
+  top: -2px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -177,13 +194,22 @@
 }
 
 .sg-hero-node--right {
-  bottom: 8%;
-  right: 0;
+  bottom: 10%;
+  right: 2%;
 }
 
 .sg-hero-node--left {
-  bottom: 8%;
-  left: 0;
+  bottom: 10%;
+  left: 2%;
+}
+
+.sg-hero-node--right {
+  bottom: 10%;
+  right: 2%;
+}
+
+.sg-hero-node--right:hover {
+  transform: scale(1.08);
 }
 
 @keyframes sgSpin {
@@ -203,6 +229,7 @@
   border-radius: var(--_15px);
   padding: 1.5rem;
   transition: border-color 0.25s, transform 0.25s;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14);
 }
 
 .sg-stat-card:hover {
@@ -260,9 +287,9 @@
 
 .sg-game-card:hover {
   border-color: var(--sg-gold);
-  background: linear-gradient(180deg, rgba(244, 196, 48, 0.06), var(--sg-surface));
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(180deg, rgba(244, 196, 48, 0.1), var(--sg-surface));
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28);
 }
 
 .sg-game-icon {
@@ -476,6 +503,7 @@
   border: 1px solid var(--sg-border);
   border-radius: var(--_15px);
   padding: 1.75rem;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16);
 }
 
 .sg-feature-num {
@@ -502,11 +530,12 @@
 
 /* CTA */
 .sg-cta {
-  background: linear-gradient(135deg, rgba(124, 58, 237, 0.25), rgba(244, 196, 48, 0.08));
-  border: 1px solid rgba(244, 196, 48, 0.2);
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.24), rgba(244, 196, 48, 0.12));
+  border: 1px solid rgba(244, 196, 48, 0.22);
   border-radius: var(--_20px);
   padding: 3rem;
   text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
 }
 
 .sg-cta h2 {
@@ -532,8 +561,8 @@
     grid-template-columns: 1fr;
   }
 
-  .sg-hero-visual { min-height: 300px; }
-  .sg-hero-orbit { width: 280px; height: 280px; }
+  .sg-hero-visual { min-height: 320px; }
+  .sg-hero-orbit { width: 260px; height: 260px; }
   .sg-stats-grid { grid-template-columns: repeat(2, 1fr); }
   .sg-games-grid { grid-template-columns: repeat(2, 1fr); }
 }
@@ -542,5 +571,25 @@
   .sg-stats-grid,
   .sg-games-grid {
     grid-template-columns: 1fr;
+  }
+
+  .sg-hero-orbit {
+    width: 250px;
+    height: 250px;
+  }
+
+  .sg-hero-core {
+    width: 150px;
+    height: 150px;
+  }
+
+  .sg-hero-node {
+    width: 52px;
+    height: 52px;
+  }
+
+  .sg-hero-node--right {
+    bottom: 8%;
+    right: 0;
   }
 }

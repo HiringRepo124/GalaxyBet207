@@ -4,6 +4,12 @@ import { IoRocketOutline } from "react-icons/io5";
 import { GiSoccerBall, GiCherry } from "react-icons/gi";
 import { TbCoins } from "react-icons/tb";
 
+const innerOrbitLinks = [
+  { title: "Staking", icon: TbCoins, to: "/staking", className: "sg-hero-node--top" },
+  { title: "Sports", icon: GiSoccerBall, to: "/sports-betting", className: "sg-hero-node--left" },
+  { title: "Slots", icon: GiCherry, to: "/slots", className: "sg-hero-node--right" },
+];
+
 const SoftHero = ({ data }) => {
   const hero = data?.Hero || {};
 
@@ -50,18 +56,14 @@ const SoftHero = ({ data }) => {
             <div className="sg-hero-orbit">
               <div className="sg-hero-ring" />
               <div className="sg-hero-ring sg-hero-ring-2" />
-              <div className="sg-hero-core">
+              <Link to="/home" className="sg-hero-core" aria-label="Home">
                 <img src="/images/softgalaxy.svg" alt="SoftGalaxy" />
-              </div>
-              <div className="sg-hero-node sg-hero-node--top" title="Staking">
-                <TbCoins color="#ffd95a" />
-              </div>
-              <div className="sg-hero-node sg-hero-node--left" title="Slots">
-                <GiCherry color="#ffd95a" />
-              </div>
-              <div className="sg-hero-node sg-hero-node--right" title="Sport">
-                <GiSoccerBall color="#ffd95a" />
-              </div>
+              </Link>
+              {innerOrbitLinks.map(({ title, icon: Icon, to, className }) => (
+                <Link key={title} to={to} className={`sg-hero-node ${className}`} title={title} aria-label={title}>
+                  <Icon color="#ffd95a" />
+                </Link>
+              ))}
             </div>
           </div>
         </div>
