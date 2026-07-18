@@ -297,17 +297,31 @@ const Transactions = () => {
                 )}
                 {filtered.map((item) => (
                   <div key={item.id} className="historyRow">
-                    <span className="historyCell">
-                      <strong>{item.id}</strong>
+                    <span className="historyCell" data-label="ID">
+                      <strong className="txnIdChip">{item.id}</strong>
                     </span>
-                    <span className="historyCell">{item.date}</span>
-                    <span className={`historyCell ${item.type === "Buy" ? "buy" : "sell"}`}>{item.type}</span>
-                    <span className="historyCell">{item.item}</span>
-                    <span className="historyCell">{item.marketplace}</span>
-                    <span className="historyCell">{item.amount}</span>
-                    <span className="historyCell">{item.fee}</span>
-                    <span className={`historyCell status ${item.status === "Completed" ? "completed" : "pending"}`}>
-                      {item.status}
+                    <span className="historyCell" data-label="Date">
+                      <span className="txnDateText">{item.date}</span>
+                    </span>
+                    <span className={`historyCell ${item.type === "Buy" ? "buy" : "sell"}`} data-label="Type">
+                      <span className={`txnTypePill ${item.type === "Buy" ? "buy" : "sell"}`}>{item.type}</span>
+                    </span>
+                    <span className="historyCell" data-label="Item">
+                      <span className="txnItemName">{item.item}</span>
+                    </span>
+                    <span className="historyCell" data-label="Marketplace">
+                      <span className="txnMarketplaceTag">{item.marketplace}</span>
+                    </span>
+                    <span className="historyCell" data-label="Amount">
+                      <span className="txnAmountValue">{item.amount}</span>
+                    </span>
+                    <span className="historyCell" data-label="Fee">
+                      <span className="txnFeeValue">{item.fee}</span>
+                    </span>
+                    <span className={`historyCell status ${item.status === "Completed" ? "completed" : "pending"}`} data-label="Status">
+                      <span className={`txnStatusPill ${item.status === "Completed" ? "completed" : "pending"}`}>
+                        {item.status}
+                      </span>
                     </span>
                   </div>
                 ))}
